@@ -1,8 +1,8 @@
 # loykrathong_pj
 
-## Project setup
+## Todo
 ```
-npm install
+visited button
 ```
 
 ### Compiles and hot-reloads for development
