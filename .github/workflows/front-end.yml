@@ -70,6 +70,6 @@ jobs:
          password: ${{ secrets.PASSWORD }}
          script: |
             docker pull ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}   
-            docker-compose up -d --build
+            docker run -d -p 80:80 ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}
             docker ps -a
     
