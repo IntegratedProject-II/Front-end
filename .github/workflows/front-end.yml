@@ -50,6 +50,6 @@ jobs:
       with:
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/pungpeee/IntegratedProject-II/Front-end:${{ env.ENV_NAME }} 
+        tags: ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }} 
     
     
