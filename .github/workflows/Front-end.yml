@@ -64,7 +64,7 @@ jobs:
          username: ${{ secrets.USERNAME }}
          password: ${{ secrets.PASSWORD }}
          script: |
-            docker pull ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}  
+            docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
             docker-compose down 
             docker-compose up -d
             docker ps -a
