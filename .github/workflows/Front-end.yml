@@ -2,7 +2,9 @@ name: Front-end
 
 on:
   push:
-    branches:  main 
+    branches:  
+       - main
+       - dev
   pull_request:
     branches:  main 
 
@@ -63,7 +65,7 @@ jobs:
          password: ${{ secrets.PASSWORD }}
          script: |
             docker pull ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}  
-            docker-images
+            docker-compose down 
             docker-compose up -d
             docker ps -a
 #          script: |
