@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+  front-end:
+    image: ghcr.io/integratedproject-ii/front-end:dev     
+    ports:
+      - "80:80"
+networks:
+    default:
+        external:
+            name: loykrathong_network
