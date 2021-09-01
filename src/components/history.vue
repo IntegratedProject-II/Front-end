@@ -7,7 +7,7 @@
         <border-circle>
           <img
             src="@/assets/krathong/kt4.png"
-            class="p-10 w-full h-full object-contain "
+            class="sm:p-10 p-2 w-full h-full object-contain "
           />
         </border-circle>
       </div>
@@ -38,7 +38,7 @@
         <border-circle>
           <img
             src="@/assets/krathong/kt4.png"
-            class="p-10 w-full h-full object-contain "
+            class="sm:p-10 p-2 w-full h-full object-contain "
           />
         </border-circle>
       </div>
@@ -49,7 +49,7 @@
         <border-circle>
           <img
             src="@/assets/krathong/kt4.png"
-            class="p-10 w-full h-full object-contain "
+            class="sm:p-10 p-2 w-full h-full object-contain "
           />
         </border-circle>
       </div>
