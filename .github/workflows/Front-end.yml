@@ -55,14 +55,15 @@ jobs:
 #           password: ${{ secrets.PASSWORD }}
 #           source: "./docker-compose.yml"
 #           target: "./docker"  
-    - name: Copy single file to remote
-      uses: garygrossgarten/github-action-scp@release
-      with:
-          local: ./docker-compose.yml
-          remote: ./docker
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+
+#     - name: Copy single file to remote
+#       uses: garygrossgarten/github-action-scp@release
+#       with:
+#           local: ./docker-compose.yml
+#           remote: ./docker
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           password: ${{ secrets.SSH_PASSWORD }}
     
   deploy:
       needs: build
@@ -80,13 +81,13 @@ jobs:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.USERNAME }}
          password: ${{ secrets.PASSWORD }}
-#          script: |
-#             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
-#             docker stop 
-#             docker run -d --name Frontend -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} 
          script: |
-            docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
-            docker-compose down 
-            docker-compose up -d
+            docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
+            docker stop 
+            docker run -d --name Frontend -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} 
+#          script: |
+#             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
+#             docker-compose down 
+#             docker-compose up -d
 
     
