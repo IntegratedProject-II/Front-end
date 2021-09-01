@@ -4,7 +4,7 @@ on:
   push:
     branches:  
        - main
-       - dev
+     
   pull_request:
     branches:  main 
 
@@ -83,11 +83,12 @@ jobs:
          password: ${{ secrets.PASSWORD }}
          script: |
             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
-            docker stop 
-            docker run -d --name Frontend -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} 
-#          script: |
-#             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
-#             docker-compose down 
-#             docker-compose up -d
+            docker stop cf0ef9a03342
+            docker start cf0ef9a03342
+#           script: |
+#              docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
+#              docker-compose down 
+#              docker-compose up -d
+#              docker run -d --name Frontend -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}
 
     
