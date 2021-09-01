@@ -2,7 +2,9 @@ name: Front-end
 
 on:
   push:
-    branches:  main 
+    branches:  
+       - main
+       - dev
   pull_request:
     branches:  main 
 
@@ -45,22 +47,26 @@ jobs:
         push: true
         tags: ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} 
     
-#   deploy:
-#       needs: build
-#       runs-on: ubuntu-latest
-#       steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
         
-#       - name: Set env
-#         run: echo "ENV_NAME=$( [ "$GITHUB_REF" == "refs/heads/master" ] && echo 'dev' || echo ${GITHUB_REF##*/} )" >> $GITHUB_ENV
+      - name: Set env
+        run: echo "ENV_NAME=$( [ "$GITHUB_REF" == "refs/heads/master" ] && echo 'dev' || echo ${GITHUB_REF##*/} )" >> $GITHUB_ENV
       
-#       - name: Deploy execute command ssh to remote server
-#         uses: appleboy/ssh-action@master
-#         with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
+      - name: Deploy execute command ssh to remote server
+        uses: appleboy/ssh-action@master
+        with:
+         host: ${{ secrets.HOST }}
+         username: ${{ secrets.USERNAME }}
+         password: ${{ secrets.PASSWORD }}
+         script: |
+            docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
+            docker run -d -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} --name Front-end
+            docker ps -a
 #          script: |
 #             docker pull ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}   
 #             docker run -d -p 80:80 ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}
