@@ -65,8 +65,7 @@ jobs:
          password: ${{ secrets.PASSWORD }}
          script: |
             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
-            docker-compose down 
-            docker-compose up -d
+            docker run -d -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} --name Front-end
             docker ps -a
 #          script: |
 #             docker pull ghcr.io/pungpeee/front-end:${{ env.ENV_NAME }}   
