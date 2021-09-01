@@ -43,8 +43,8 @@ jobs:
       uses: appleboy/scp-action@master
       with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           source: "./docker-compose.yml"
           target: "."  
           
