@@ -43,10 +43,10 @@ jobs:
       uses: appleboy/scp-action@master
       with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          username: Pungpeee
+          password: ${{ secrets.PASSWORD }}
           source: "./docker-compose.yml"
-          target: "."  
+          target: "./docker"  
           
     - name: Build and push
       uses: docker/build-push-action@v2
