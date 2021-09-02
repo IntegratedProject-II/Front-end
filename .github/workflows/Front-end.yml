@@ -39,8 +39,8 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "."
-          target: "."  
+          source: ./docker.compose.${{ env.ENV_NAME }}
+          target: ~/frontend
           
 
 #     - name: Copy single file to remote
