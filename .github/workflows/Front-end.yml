@@ -54,7 +54,7 @@ jobs:
           username: Powerpuffgirl
           password: Powerpuffgirl1234
           source: "./docker-compose.yml"
-          target: "./docker"  
+          target: "."  
           strip_components: 1
 
 #     - name: Copy single file to remote
