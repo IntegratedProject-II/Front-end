@@ -3,7 +3,7 @@ name: Front-end
 on:
   push:
     branches:  
-       - main
+       - dev
      
   pull_request:
     branches:  main 
@@ -47,14 +47,14 @@ jobs:
         push: true
         tags: ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }} 
             
-#     - name: Deploy compose file
-#       uses: appleboy/scp-action@master
-#       with:
-#           host: ${{ secrets.HOST }}
-#           username: Pungpeee
-#           password: ${{ secrets.PASSWORD }}
-#           source: "./docker-compose.yml"
-#           target: "./docker"  
+    - name: Deploy compose file
+      uses: appleboy/scp-action@master
+      with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "./docker-compose.yml"
+          target: "./docker"  
 
 #     - name: Copy single file to remote
 #       uses: garygrossgarten/github-action-scp@release
@@ -81,14 +81,15 @@ jobs:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.USERNAME }}
          password: ${{ secrets.PASSWORD }}
+#          script: |
+#             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
+#             docker stop cf0ef9a03342
+#             docker start cf0ef9a03342
+
          script: |
-            docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
-            docker stop cf0ef9a03342
-            docker start cf0ef9a03342
-#           script: |
-#              docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
-#              docker-compose down 
-#              docker-compose up -d
-#              docker run -d --name Frontend -p 80:80 --network=loykrathong_network ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}
+             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
+             docker-compose down 
+             docker-compose up -d
+             
 
     
