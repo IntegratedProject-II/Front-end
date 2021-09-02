@@ -37,8 +37,8 @@ jobs:
       uses: appleboy/scp-action@master
       with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           source: "."
           target: "."  
           
