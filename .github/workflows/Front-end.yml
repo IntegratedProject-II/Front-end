@@ -55,6 +55,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: "./docker-compose.yml"
           target: "./docker"  
+          strip_components: 1
 
 #     - name: Copy single file to remote
 #       uses: garygrossgarten/github-action-scp@release
