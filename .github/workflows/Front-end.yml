@@ -52,10 +52,10 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
          host: ${{ secrets.HOST }}
-         username: ${{ secrets.USERNAME }}
-         password: ${{ secrets.PASSWORD }}
+         username: ${{ secrets.SSH_USERNAME }}
+         password: ${{ secrets.SSH_PASSWORD }}
          script: |
-             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}   
+             docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
              docker-compose down 
              docker-compose up -d
 
