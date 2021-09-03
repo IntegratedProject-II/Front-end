@@ -56,7 +56,7 @@ jobs:
          password: ${{ secrets.SSH_PASSWORD }}
          script: |
              docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
-             docker-compose down 
-             docker-compose up -d
+             docker-compose -f docker-compose.dev.yml down 
+             docker-compose -f docker-compose.dev.yml up -d
 
       
