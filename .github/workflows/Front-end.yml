@@ -40,8 +40,8 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./docker.compose.${{ env.ENV_NAME }}.yml
-          target: ~/frontend
+          source: "./docker.compose.${{ env.ENV_NAME }}.yml"
+          target: "./frontend-docker"
           
 
 #     - name: Copy single file to remote
