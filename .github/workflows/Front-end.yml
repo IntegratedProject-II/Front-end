@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "Front-end/docker-compose.${{ env.ENV_NAME }}.yml"
+          source: "."
           target: "~/Frontend-docker"
            
 
