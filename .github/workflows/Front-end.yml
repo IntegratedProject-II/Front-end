@@ -27,5 +27,5 @@ jobs:
        with:
          file: ./Dockerfile
          push: true
-         tags: ghcr.io/integratedProject-ii/front-end:${{ env.ENV_NAME }}
+         tags: ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}
  
