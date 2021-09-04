@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=" desktop:text-xl text-l py-5">
+  <div id="app" class=" desktop:text-xl text-l py-5" >
     <div
       id="nav"
       class="laptop:contents hidden "
@@ -35,6 +35,7 @@
       
     <!-- responsive -->
     <div class="laptop:hidden flex justify-between  mx-5">
+      <div class="fixed w-screen h-screen left-0 top-0 bg-black opacity-50 " v-if="isDropDown" @click="dropDown"  @wheel.prevent @touchmove.prevent @scroll.prevent/>
       <img
         src="@/assets/logo.png"
         class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
@@ -42,7 +43,7 @@
 
       <div class="flex items-center " style="color:#C4C4C4">
         <i
-          v-if="isDropDown == false"
+          v-if="!isDropDown "
           class="fi-rr-align-justify "
           @click="dropDown"
         />
@@ -83,7 +84,7 @@ export default {
   },
   methods: {
     dropDown() {
-      if (this.isDropDown == false) {
+      if (!this.isDropDown) {
         this.isDropDown = true;
       } else {
         this.isDropDown = false;
