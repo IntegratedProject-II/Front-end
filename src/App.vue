@@ -1,52 +1,69 @@
 <template>
-  <div id="app" class=" desktop:text-xl text-l py-5" >
-    <div
-      id="nav"
-      class="laptop:contents hidden "
-    >
-    <div class="flex flex-row items-center laptop:divide-x laptop:divide-gray-300 laptop:px-10">
-<img
-        src="@/assets/logo.png"
-        class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
-      />
+  <div id="app" class=" desktop:text-xl text-l py-5">
+    <div id="nav" class="laptop:contents hidden ">
+      <div
+        class="flex flex-row items-center laptop:divide-x laptop:divide-gray-300 laptop:px-10"
+      >
+        <img
+          src="@/assets/logo.png"
+          class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
+        />
 
-   
-      <div class="flex flex-row justify-around w-full laptop:ml-5 items-center h-32">
-        <router-link to="/" class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center">
-          Home
-        </router-link>
-        <router-link to="/loy" class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center">
-          Loy
-        </router-link>
+        <div
+          class="flex flex-row justify-around w-full laptop:ml-5 items-center h-32"
+        >
+          <router-link
+            to="/"
+            class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
+          >
+            Home
+          </router-link>
+          <router-link
+            to="/loy"
+            class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
+          >
+            Loy
+          </router-link>
 
-        <a href="/history" class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center">
-          History
-        </a>
-        <router-link to="/member" class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center">
-          Member
-        </router-link>
-        <router-link to="/login" class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon ">
-          Login
-        </router-link>
+          <a
+            href="/history"
+            class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
+          >
+            History
+          </a>
+          <router-link
+            to="/member"
+            class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
+          >
+            Member
+          </router-link>
+          <router-link
+            to="/login"
+            class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
+          >
+            Login
+          </router-link>
+        </div>
       </div>
     </div>
 
-    </div>
-      
     <!-- responsive -->
     <div class="laptop:hidden flex justify-between  mx-5">
-      <div class="fixed w-screen h-screen left-0 top-0 bg-black opacity-50 " v-if="isDropDown" @click="dropDown"  @wheel.prevent @touchmove.prevent @scroll.prevent/>
+      <div
+        class="fixed w-screen h-screen left-0 top-0 bg-black opacity-50 "
+        v-if="isDropDown"
+        @click="dropDown"
+        @wheel.prevent
+        @touchmove.prevent
+        @scroll.prevent
+      />
       <img
         src="@/assets/logo.png"
         class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
       />
 
       <div class="flex items-center " style="color:#C4C4C4">
-        <i
-          v-if="!isDropDown "
-          class="fi-rr-align-justify "
-          @click="dropDown"
-        />
+        <i v-if="!isDropDown" class="fi-rr-align-justify " @click="dropDown" />
         <div v-else class="relative">
           <i class="fi-rr-cross " @click="dropDown" />
           <div
@@ -66,7 +83,7 @@
               Member
             </router-link>
             <router-link to="/login" class="list" @click="dropDown">
-             Login
+              Login
             </router-link>
           </div>
         </div>
@@ -90,9 +107,8 @@ export default {
         this.isDropDown = false;
       }
       console.log("Drop down status : " + this.isDropDown);
-    }
+    },
   },
-
 };
 </script>
 
@@ -114,6 +130,13 @@ export default {
 }
 .list:focus {
   color: #748ca3;
-  
+}
+.header {
+  color: #636363;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 4rem;
 }
 </style>
