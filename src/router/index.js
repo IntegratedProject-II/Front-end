@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue'
 import Loy from '@/views/Location.vue'
 import Member from '@/views/Member.vue'
 import Login from '@/views/Login.vue'
+import History from '@/views/History.vue'
 const routes = [
   {
     path: '/',
@@ -13,6 +14,11 @@ const routes = [
     path:'/loy',
     name:'Loy',
     component:Loy
+  },
+  {
+    path:'/history',
+    name:'History',
+    component:History
   },
   {
     path:'/member',
