@@ -40,7 +40,7 @@ jobs:
          username: ${{ secrets.SSH_USERNAME }}
          password: ${{ secrets.SSH_PASSWORD }}
          source: ./docker-compose.${{ env.ENV_NAME }}.yml
-         target: ~/Docker-front-end
+         target: ./Docker-front-end
     
    deploy:
       needs: build
