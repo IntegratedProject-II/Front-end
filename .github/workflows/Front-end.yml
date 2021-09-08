@@ -116,6 +116,3 @@ jobs:
              docker pull ghcr.io/integratedproject-ii/front-end:${{ env.ENV_NAME }}  
              docker-compose -f Docker-front-end/docker-compose.dev.yml down 
              docker-compose -f Docker-front-end/docker-compose.dev.yml up -d
-
-    
-
