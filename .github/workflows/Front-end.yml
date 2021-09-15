@@ -49,8 +49,12 @@ jobs:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.SSH_USERNAME }}
          password: ${{ secrets.SSH_PASSWORD }}
+#          script: |
+#              docker-compose -f Docker-front-end/docker-compose.yml down 
+#              docker pull ghcr.io/integratedproject-ii/front-end:main 
+#              docker-compose -f Docker-front-end/docker-compose.yml up -d 
+#              docker ps -a
          script: |
-             docker-compose -f Docker-front-end/docker-compose.yml down 
+             docker-compose -f docker-compose.yml down 
              docker pull ghcr.io/integratedproject-ii/front-end:main 
-             docker-compose -f Docker-front-end/docker-compose.yml up -d 
-             docker ps -a
+             docker-compose -f docker-compose.yml up -d 
