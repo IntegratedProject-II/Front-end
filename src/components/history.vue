@@ -4,7 +4,7 @@
     <!-- row1 -->
     <div class="tablet:flex ">
       <div class="tablet:w-1/3 m-8">
-        <border-circle>
+        <border-circle >
           <img
             src="@/assets/krathong/kt4.png"
             class="sm:p-10 p-2 w-full h-full object-contain "

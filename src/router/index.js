@@ -2,8 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Loy from '@/views/Location.vue'
 import Member from '@/views/Member.vue'
-import Login from '@/views/Login.vue'
+import SignIn from '@/views/SignIn.vue'
 import History from '@/views/History.vue'
+import Krathong from '@/views/AllKrathong.vue'
+import Register from '@/views/Register.vue'
 const routes = [
   {
     path: '/',
@@ -26,10 +28,21 @@ const routes = [
     component:Member
   },
   {
-    path:'/login',
-    name:'Login',
-    component:Login
+    path:'/signIn',
+    name:'SignIn',
+    component:SignIn
+  },
+  {
+    path:'/krathong', 
+    name:'Krathong',
+    component:Krathong
+  },
+  {
+    path:'/register', 
+    name:'Register',
+    component:Register
   }
+
 ]
 
 const router = createRouter({

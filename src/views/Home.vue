@@ -1,10 +1,11 @@
 <template>
   <div class="home">
+      <navBar-layout />
     <content-layout>
       <img src="@/assets/homePage.png" class="w-full " />
-      <div class="flex justify-center ">
-        <button class="btn text-l tablet:text-xl laptop:text-3xl px-6 tablet:px-20 tablet:py-4 py-2 h-auto">Select Krathong</button>
-      </div>
+      <router-link to="/krathong" class="flex justify-center">
+        <button class="btn text-l tablet:text-xl laptop:text-3xl px-6 tablet:px-20 tablet:py-4 py-2 h-auto ">Select Krathong </button>
+      </router-link >
 
       <!-- history -->
       <history></history>

@@ -1,5 +1,6 @@
 <template>
   <div id="member" class="w-full">
+    <navBar-layout />
     <content-layout>
       <p class="header text-xl m-8 tablet:m-16">Member</p>
 
