@@ -1,9 +1,7 @@
 version: "3.6"
 services:
-  front-end:
+  frontend:
     image: ghcr.io/integratedproject-ii/front-end:main   
-    ports:
-      - "80:80"
 networks:
     default:
         external:
