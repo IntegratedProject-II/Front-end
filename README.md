@@ -1,7 +1,11 @@
 # loykrathong_pj
 
-## Todo
+## To Fix
 ```
-visited button
+navbar width in mobile
+```
+## Fixed
+```
+
 ```
 
