@@ -50,6 +50,6 @@ jobs:
          username: ${{ secrets.SSH_USERNAME }}
          password: ${{ secrets.SSH_PASSWORD }}
          script: |
-             docker pull ghcr.io/integratedproject-ii/front-end:main
              docker-compose -f Docker-front-end/docker-compose.yml down 
+             docker pull ghcr.io/integratedproject-ii/front-end:main 
              docker-compose -f Docker-front-end/docker-compose.yml up -d 
