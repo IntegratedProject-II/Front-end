@@ -35,7 +35,7 @@ jobs:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.SSH_USERNAME }}
          password: ${{ secrets.SSH_PASSWORD }}
-         source: ./docker-compose.yml
+         source: .
          target: ./Docker-front-end
     
    deploy:
