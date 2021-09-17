@@ -2,7 +2,7 @@
   <div class="register">
     <content-layout>
       <div class="relative">
-        <p class="header">Register</p>
+        <p class="text-ash tablet:text-4xl font-bold text-center">Register</p>
 
         <!-- change role btn  -->
         <Toggle
@@ -134,16 +134,15 @@
       <div class="flex justify-center ">
         <router-link to="/signin">
           <button
-            class="btn p-2 m-10 w-36 text-white "
-            style=" background-color:#DA9999 "
+            class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
+            
           >
             Cancel
           </button>
         </router-link>
         <button
           @click="submit"
-          style="background-color:#90B493"
-          class="btn p-2 m-10 w-36 text-white"
+          class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
         >
           Confirm
         </button>

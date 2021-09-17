@@ -14,7 +14,7 @@
       >
         <router-link
           :to="item.route"
-          class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
+          class="text-indigo bg-coin rounded-full hover:duration-300 hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center"
           @click="dropDown"
           v-for="(item, index) in route"
           :key="index"
@@ -23,7 +23,7 @@
         </router-link>
         <router-link
           to="/signin"
-          class="btn w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
+          class="text-indigo rounded-full hover:duration-300  hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
         >
           SignIn
         </router-link>
@@ -49,21 +49,21 @@
     <div class="flex items-center " style="color:#C4C4C4">
       <i v-if="!isDropDown" class="fi-rr-align-justify " @click="dropDown" />
       <div v-else class="relative">
-        <i class="fi-rr-cross " @click="dropDown" />
+        <i class="fi-rr-cross" @click="dropDown" />
         <div
           class="-left-32 absolute flex flex-col w-32 tablet:w-44 tablet:-left-40 px-2 py-3 text-center rounded-3xl  divide-y divide-offWhite
           bg-cloud text-indigo "
         >
           <router-link
             :to="item.route"
-            class="list"
+            class="focus:bg-silver"
             @click="dropDown"
             v-for="(item, index) in route"
             :key="index"
           >
             {{ item.name }}
           </router-link>
-          <router-link to="/signin" class="list"> 
+          <router-link to="/signin" class="focus:bg-silver"> 
             SignIn
           </router-link>
         </div>

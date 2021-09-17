@@ -3,9 +3,16 @@ module.exports = {
     extend: {
       colors: {
         'offWhite': '#E5E5E5',
+        'coin':'#c8cfd8',
         'cloud': '#C4C4C4',
         'indigo':'#4d506c',
         'lemon' : '#feffc1',
+        'silver':'#748ca3',
+        'ash':'#636363',
+        'fern':'#90B493',
+        'rose':'#DA9999'
+
+        
       }
     },
     screens: {
