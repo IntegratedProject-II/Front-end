@@ -1,11 +1,11 @@
 <template>
   <div class="register">
-    <content-layout>
+    <content-layout class="m-16">
       <div class="relative">
         <p class="text-ash tablet:text-4xl font-bold text-center">Register</p>
 
         <!-- change role btn  -->
-        <Toggle
+        <!-- <Toggle
           v-model="isUser"
           class="absolute right-0 top-5  px-5"
           :classes="{
@@ -15,34 +15,34 @@
           }"
           onLabel="user"
           offLabel="admin"
-        ></Toggle>
+        ></Toggle> -->
       </div>
 
       <!-- input part -->
       <div class="grid grid-cols-2 gap-x-14 px-24 ">
         <!-- firstName -->
         <div>
-          <label for="firstname">First name</label><br />
+          <label for="fname">First name</label><br />
           <input
             type="text"
-            v-model.trim="entered.firstname"
+            v-model.trim="entered.fname"
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           />
-          <p v-if="invalid.firstname" class="text-red-500">
-            Please enter firstname !
+          <p v-if="invalid.fname" class="text-red-500">
+            Please enter fname !
           </p>
         </div>
 
         <!-- lastName -->
         <div>
-          <label for="lastname">Last name</label><br />
+          <label for="lname">Last name</label><br />
           <input
             type="text"
-            v-model.trim="entered.lastname"
+            v-model.trim="entered.lname"
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           />
-          <p v-if="invalid.lastname" class="text-red-500">
-            Please enter lastname !
+          <p v-if="invalid.lname" class="text-red-500">
+            Please enter lname !
           </p>
         </div>
 
@@ -63,13 +63,12 @@
         <div>
           <label for="country">Country</label><br />
           <select
-            v-model.trim="entered.country"
+            v-model.trim="entered.ct_id"
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           >
-            <option value="franch">Franch</option>
-            <option value="america">America</option>
-            <option value="swizerland">Swizterland</option>
-            <option value="canada">Canada</option>
+            <option v-for="item in country" :key="item.ct_id" :value="item.ct_id">{{
+              item.country
+            }}</option>
           </select>
           <p v-if="invalid.country" class="text-red-500">
             Please enter country!
@@ -79,10 +78,10 @@
         <!-- admin role  -->
         <!-- phone number -->
 
-        <div v-if="!isUser">
+        <!-- <div v-if="!isUser">
           <label for="phoneNumber">Phone number</label><br />
           <input
-            type="tel"
+            type="number"
             v-model.trim="entered.phoneNumber"
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           />
@@ -90,7 +89,7 @@
             Please enter phone number !
           </p>
         </div>
-        <!-- ID card -->
+         ID card 
         <div v-if="!isUser">
           <label for="idCard">Id card</label><br />
           <input
@@ -101,7 +100,7 @@
           <p v-if="invalid.idCard" class="text-red-500">
             Please enter ID card!
           </p>
-        </div>
+        </div> -->
 
         <!-- end admin role -->
 
@@ -135,7 +134,6 @@
         <router-link to="/signin">
           <button
             class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
-            
           >
             Cancel
           </button>
@@ -151,71 +149,74 @@
   </div>
 </template>
 <script>
-import Toggle from "@vueform/toggle";
+import axios from "axios";
+// import Toggle from "@vueform/toggle";
 export default {
-  components: { Toggle },
+  // components: { Toggle },
   data() {
     return {
       isUser: true,
       entered: {
-        firstname: "",
-        lastname: "",
+        fname: "",
+        lname: "",
         email: "",
-        country: "",
-        phoneNumber: "",
-        idCard: "",
+        ct_id: null,
+        // phoneNumber: "",
+        // idCard: "",
         username: "",
         password: "",
+        role_id: 1,
       },
       invalid: {
-        firstname: false,
-        lastname: false,
+        fname: false,
+        lname: false,
         email: false,
-        country: false,
-        phoneNumber: false,
-        idCard: false,
+        ct_id: false,
+        // phoneNumber: false,
+        // idCard: false,
         username: false,
         password: false,
       },
       isValid: false,
+      country: [],
     };
   },
   methods: {
-    changeRole() {
-      if (!this.isUser) {
-        this.isUser = true;
-        console.log("if " + this.isUser);
-      } else {
-        this.isUser = false;
-        console.log("else " + this.isUser);
-      }
-    },
+    // changeRole() {
+    //   if (!this.isUser) {
+    //     this.isUser = true;
+    //     console.log("if " + this.isUser);
+    //   } else {
+    //     this.isUser = false;
+    //     console.log("else " + this.isUser);
+    //   }
+    // },
     submit() {
-      this.invalid.firstname =
-        this.entered.firstname === undefined || this.entered.firstname === ""
+      this.invalid.fname =
+        this.entered.fname === undefined || this.entered.fname === ""
           ? true
           : false;
-      this.invalid.lastname =
-        this.entered.lastname === undefined || this.entered.lastname === ""
+      this.invalid.lname =
+        this.entered.lname === undefined || this.entered.lname === ""
           ? true
           : false;
       this.invalid.email =
         this.entered.email === undefined || this.entered.email === ""
           ? true
           : false;
-      this.invalid.country =
-        this.entered.country === undefined || this.entered.country === ""
+      this.invalid.ct_id =
+        this.entered.ct_id === undefined || this.entered.ct_id === ""
           ? true
           : false;
-      this.invalid.phoneNumber =
-        this.entered.phoneNumber === undefined ||
-        this.entered.phoneNumber === ""
-          ? true
-          : false;
-      this.invalid.idCard =
-        this.entered.idCard === undefined || this.entered.idCard === ""
-          ? true
-          : false;
+      // this.invalid.phoneNumber =
+      //   this.entered.phoneNumber === undefined ||
+      //   this.entered.phoneNumber === ""
+      //     ? true
+      //     : false;
+      // this.invalid.idCard =
+      //   this.entered.idCard === undefined || this.entered.idCard === ""
+      //     ? true
+      //     : false;
       this.invalid.username =
         this.entered.username === undefined || this.entered.username === ""
           ? true
@@ -231,31 +232,37 @@ export default {
           this.isValid = false;
         }
       }
-
       if (this.isValid) {
-        this.entered.firstname = "";
-        this.entered.lastname = "";
-        this.entered.email = "";
-        this.entered.country = "";
-        this.entered.phoneNumber = "";
-        this.entered.idCard = "";
-        this.entered.username = "";
-        this.entered.password = "";
+        // this.entered.firstname = "";
+        // this.entered.lastname = "";
+        // this.entered.email = "";
+        // this.entered.country = "";
+        // // this.entered.phoneNumber = "";
+        // // this.entered.idCard = "";
+        // this.entered.username = "";
+        // this.entered.password = "";
+        axios
+          .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
-
-      // console.log("submit method");
-      // console.log(this.isUser ? "user" : "admin");
-      // console.log(this.entered.firstname);
-      // console.log(this.entered.lastname);
-      // console.log(this.entered.email);
-      // console.log(this.entered.country);
-      // if (!this.isUser) {
-      //   console.log(this.entered.phoneNumber);
-      //   console.log(this.entered.idCard);
-      // }
-      // console.log(this.entered.username);
-      // console.log(this.entered.password);
+      console.log("submit method");
     },
+    fetchCountry() {
+      axios.get(`${process.env.VUE_APP_API}/country/getCountry`)
+      .then((res) => {
+        console.log(res.data);
+        this.country = res.data.data;
+        console.log(this.country);
+      });
+    },
+  },
+  mounted() {
+    this.fetchCountry();
   },
 };
 </script>

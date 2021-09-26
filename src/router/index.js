@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import Loy from '@/views/Location.vue'
 import Member from '@/views/Member.vue'
 import SignIn from '@/views/SignIn.vue'
 import History from '@/views/History.vue'
@@ -11,11 +10,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path:'/loy',
-    name:'Loy',
-    component:Loy
   },
   {
     path:'/history',
@@ -33,7 +27,7 @@ const routes = [
     component:SignIn
   },
   {
-    path:'/krathong', 
+    path:'/loy', 
     name:'Krathong',
     component:Krathong
   },
