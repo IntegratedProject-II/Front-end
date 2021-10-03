@@ -1,7 +1,6 @@
 export const register = {
     namespaced: true,
     state: {
-        
         role: ""
     },
     mutations:{

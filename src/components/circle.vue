@@ -1,6 +1,6 @@
 <template>
   <div
-    class=" rounded-full bg-cloud "
+    class=" rounded-full "
   >
     <slot></slot>
   </div>

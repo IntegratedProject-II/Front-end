@@ -6,9 +6,11 @@ import './assets/tailwind.css'
 import content from '@/components/content.vue'
 import circle from '@/components/circle.vue'
 import navBar from '@/components/navBar.vue'
+import itemPreview from "@/components/itemPreview.vue"
 
 
 createApp(App).component('content-layout',content)
 .component('border-circle',circle)
 .component('navBar-layout',navBar)
+.component('item-preview',itemPreview)
 .use(store).use(router).mount('#app')

@@ -16,6 +16,9 @@
             v-model.trim="entered.username"
             class="bg-cloud rounded-3xl py-1 px-2"
           />
+          <p v-if="invalid.username" class="text-red-500">
+            Please enter username!
+          </p>
         </div>
 
         <!-- password -->
@@ -26,17 +29,22 @@
             v-model.trim="entered.password"
             class="bg-cloud rounded-3xl py-1 px-2"
           />
+          <p v-if="invalid.password" class="text-red-500">
+            Please enter password!
+          </p>
         </div>
       </div>
 
       <!-- signIn btn  -->
       <div class="flex justify-center">
+        <router-link to="/">
         <button
           class=" text-indigo bg-coin rounded-full hover:duration-300 hover:text-silver hover:bg-white p-2 m-10 px-10"
           @click="signIn"
         >
-          signIn
+          Sign In
         </button>
+        </router-link>
       </div>
 
       <div class="border-t-2 border-gray-500 mx-20 ">
@@ -50,7 +58,7 @@
 </template>
 <script>
 import axios from "axios";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -58,23 +66,43 @@ export default {
         username: "",
         password: "",
       },
-      token: ""
+      invalid: {
+        username: "",
+        password: "",
+      },
+      isValid: false,
+      token: "",
     };
   },
   methods: {
     ...mapActions({
-      setRole:"signin/setRole",
+      setRole: "signin/setRole",
     }),
     signIn() {
-      axios.post(`${process.env.VUE_APP_API}/person/signin`,this.entered)
-      .then((res)=>{
-        this.setRole(res.data)
-        console.log(res.data)
-      })
-      .catch((err)=>{
-         console.log(err)
-      });
+      this.invalid.username =
+        this.entered.username === undefined || this.entered.username === ""
+          ? true
+          : false;
+      this.invalid.password =
+        this.entered.password === undefined || this.entered.password === ""
+          ? true
+          : false;
+      this.isValid = true;
+      for (const [, value] of Object.entries(this.invalid)) {
+        if (value) {
+          this.isValid = false;
+        }
+      }
 
+      axios
+        .post(`${process.env.VUE_APP_API}/person/signin`, this.entered)
+        .then((res) => {
+          this.setRole(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

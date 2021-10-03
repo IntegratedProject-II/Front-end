@@ -7,6 +7,7 @@ module.exports = {
         'cloud': '#C4C4C4',
         'indigo':'#4d506c',
         'lemon' : '#feffc1',
+        'sand' : '#EDE2BA',
         'silver':'#748ca3',
         'ash':'#636363',
         'fern':'#90B493',

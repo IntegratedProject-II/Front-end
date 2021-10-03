@@ -138,12 +138,14 @@
             Cancel
           </button>
         </router-link>
+       
         <button
           @click="submit"
           class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
         >
           Confirm
         </button>
+     
       </div>
     </content-layout>
   </div>
@@ -245,19 +247,22 @@ export default {
           .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
           .then((res) => {
             console.log(res.data);
+            alert("Register successfully")
           })
           .catch((err) => {
             console.log(err);
           });
+
+      
       }
-      console.log("submit method");
+    
     },
     fetchCountry() {
       axios.get(`${process.env.VUE_APP_API}/country/getCountry`)
       .then((res) => {
         console.log(res.data);
         this.country = res.data.data;
-        console.log(this.country);
+        // console.log(this.country);
       });
     },
   },
