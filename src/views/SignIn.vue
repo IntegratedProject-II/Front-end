@@ -60,9 +60,6 @@
 import axios from "axios";
 import { mapActions } from "vuex";
 export default {
-  mounted() {
-   console.log(process.env.VUE_APP_API);
-  },
   data() {
     return {
       entered: {
