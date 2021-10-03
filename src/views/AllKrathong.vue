@@ -19,8 +19,7 @@
           <div class="flex justify-center">
             <img
               :src="
-                'http://52.187.149.36/api/image/krathongImage/' + item.kt_id
-              "
+                'http://52.187.149.36/api/image/krathongImage/' + item.kt_id"
               class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
             />
           </div>
