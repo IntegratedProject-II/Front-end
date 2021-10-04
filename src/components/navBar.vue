@@ -4,10 +4,13 @@
     <div
       class="flex flex-row items-center laptop:divide-x laptop:divide-gray-300 laptop:px-10"
     >
-      <img
+    <router-link to="/">
+       <img
         src="@/assets/logo.png"
         class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
       />
+    </router-link>
+     
 
       <div
         class="flex flex-row justify-around w-full laptop:ml-5 items-center h-32"

@@ -17,11 +17,10 @@
       <div class="grid grid-cols-3 gap-10 w-full">
         <ul v-for="item in ktImage" :key="item.kt_id">
           <div class="flex justify-center">
-            <img
-              :src="
-                'http://52.187.149.36/api/image/krathongImage/' + item.kt_id"
+            <img :src="'http://52.187.149.36/api/image/krathongImage/' + item.kt_id"
               class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
             />
+            <p>{{item.kt_id}}</p>
           </div>
 
           <div v-if="isUser" class="flex justify-center">

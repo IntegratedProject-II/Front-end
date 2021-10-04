@@ -34,17 +34,17 @@
           </p>
         </div>
       </div>
-
+      <p v-if="!isMember" class="text-red-500">
+        Please check your username or password and try again.
+      </p>
       <!-- signIn btn  -->
       <div class="flex justify-center">
-        <router-link to="/">
         <button
           class=" text-indigo bg-coin rounded-full hover:duration-300 hover:text-silver hover:bg-white p-2 m-10 px-10"
           @click="signIn"
         >
           Sign In
         </button>
-        </router-link>
       </div>
 
       <div class="border-t-2 border-gray-500 mx-20 ">
@@ -72,6 +72,7 @@ export default {
       },
       isValid: false,
       token: "",
+      isMember: true,
     };
   },
   methods: {
@@ -93,16 +94,23 @@ export default {
           this.isValid = false;
         }
       }
-
-      axios
-        .post(`${process.env.VUE_APP_API}/person/signin`, this.entered)
-        .then((res) => {
-          this.setRole(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (this.isValid) {
+        axios
+          .post(`${process.env.VUE_APP_API}/person/signin`, this.entered)
+          .then((res) => {
+            this.setRole(res.data);
+            this.$router.push("/");
+            // console.log(res.data);
+          })
+          .catch((err) => {
+            if (err.response.status == 401) {
+              this.isMember = false;
+              // console.log(this.isMember);
+            }
+          }       
+          );
+       
+      }
     },
   },
 };
