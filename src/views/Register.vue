@@ -138,13 +138,13 @@
       </div>
 
       <div class="flex justify-center ">
-        <router-link to="/signin">
-          <button
-            class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
-          >
+        <button
+          class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
+        >
+          <router-link to="/signin">
             Cancel
-          </button>
-        </router-link>
+          </router-link>
+        </button>
 
         <button
           @click="submit"
@@ -215,7 +215,9 @@ export default {
       this.invalid.ct_id =
         this.entered.ct_id === undefined ||
         this.entered.ct_id === "" ||
-        this.entered.ct_id === null;
+        this.entered.ct_id === null
+          ? true
+          : false;
       // this.invalid.phoneNumber =
       //   this.entered.phoneNumber === undefined ||
       //   this.entered.phoneNumber === ""
@@ -241,14 +243,6 @@ export default {
         }
       }
       if (this.isValid) {
-        this.entered.firstname = "";
-        this.entered.lastname = "";
-        this.entered.email = "";
-        this.entered.ct_id = "";
-        // this.entered.phoneNumber = "";
-        // this.entered.idCard = "";
-        this.entered.username = "";
-        this.entered.password = "";
         axios
           .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
           .then((res) => {
@@ -263,6 +257,14 @@ export default {
               console.log(err);
             }
           });
+        this.entered.fname = "";
+        this.entered.lname = "";
+        this.entered.email = "";
+        this.entered.ct_id = "";
+        // this.entered.phoneNumber = "";
+        // this.entered.idCard = "";
+        this.entered.username = "";
+        this.entered.password = "";
       }
     },
     fetchCountry() {
