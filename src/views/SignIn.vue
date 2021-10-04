@@ -9,33 +9,37 @@
     <content-layout class="my-36  flex justify-center">
       <div class="m-5 ">
         <!-- username -->
-        <div>
-          <label for="username">Username</label><br />
-          <input
-            type="text"
-            v-model.trim="entered.username"
-            class="bg-cloud rounded-3xl py-1 px-2"
-          />
-          <p v-if="invalid.username" class="text-red-500">
-            Please enter username!
-          </p>
+        <div class="flex justify-center">
+          <div>
+            <label for="username">Username</label><br />
+            <input
+              type="text"
+              v-model.trim="entered.username"
+              class="bg-cloud rounded-3xl py-1 px-2"
+            />
+            <p v-if="invalid.username" class="text-red-500">
+              Please enter username!
+            </p>
+          </div>
         </div>
 
         <!-- password -->
-        <div>
-          <label for="password">Password</label><br />
-          <input
-            type="password"
-            v-model.trim="entered.password"
-            class="bg-cloud rounded-3xl py-1 px-2"
-          />
-          <p v-if="invalid.password" class="text-red-500">
-            Please enter password!
-          </p>
+        <div class="flex justify-center">
+          <div>
+            <label for="password">Password</label><br />
+            <input
+              type="password"
+              v-model.trim="entered.password"
+              class="bg-cloud rounded-3xl py-1 px-2"
+            />
+            <p v-if="invalid.password" class="text-red-500">
+              Please enter password!
+            </p>
+          </div>
         </div>
       </div>
-      <p v-if="!isMember" class="text-red-500">
-        Please check your username or password and try again.
+      <p v-if="!isMember" class="text-red-500 flex justify-center">
+        Please check your username or password again
       </p>
       <!-- signIn btn  -->
       <div class="flex justify-center">
@@ -106,10 +110,10 @@ export default {
             if (err.response.status == 401) {
               this.isMember = false;
               // console.log(this.isMember);
+            } else {
+              console.log(err);
             }
-          }       
-          );
-       
+          });
       }
     },
   },

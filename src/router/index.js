@@ -3,8 +3,9 @@ import Home from '@/views/Home.vue'
 import Member from '@/views/Member.vue'
 import SignIn from '@/views/SignIn.vue'
 import History from '@/views/History.vue'
-import Krathong from '@/views/AllKrathong.vue'
+import AllKrathong from '@/views/AllKrathong.vue'
 import Register from '@/views/Register.vue'
+import Krathong from '@/views/DetailKrathong.vue'
 const routes = [
   {
     path: '/',
@@ -28,13 +29,18 @@ const routes = [
   },
   {
     path:'/loy', 
-    name:'Krathong',
-    component:Krathong
+    name:'AllKrathong',
+    component:AllKrathong
   },
   {
     path:'/register', 
     name:'Register',
     component:Register
+  },
+  {
+    path:'/krathong/:id',
+    name:'Krathong',
+    component : Krathong
   }
 
 ]

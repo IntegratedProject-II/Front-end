@@ -29,7 +29,7 @@
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           />
           <p v-if="invalid.fname" class="text-red-500">
-            Please enter fname !
+            Please enter first name !
           </p>
         </div>
 
@@ -42,7 +42,7 @@
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           />
           <p v-if="invalid.lname" class="text-red-500">
-            Please enter lname !
+            Please enter last name !
           </p>
         </div>
 
@@ -66,11 +66,14 @@
             v-model.trim="entered.ct_id"
             class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
           >
-            <option v-for="item in country" :key="item.ct_id" :value="item.ct_id">{{
-              item.country
-            }}</option>
+            <option
+              v-for="item in country"
+              :key="item.ct_id"
+              :value="item.ct_id"
+              >{{ item.country }}</option
+            >
           </select>
-          <p v-if="invalid.country" class="text-red-500">
+          <p v-if="invalid.ct_id" class="text-red-500">
             Please enter country!
           </p>
         </div>
@@ -110,10 +113,13 @@
           <input
             type="text"
             v-model.trim="entered.username"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+            class="w-full rounded-full border border-black focus:outline-none px-2 h-9 "
           />
           <p v-if="invalid.username" class="text-red-500">
             Please enter username!
+          </p>
+          <p v-if="isUsernameRepeat" class="text-red-500">
+            This username already exists.Please use a new username
           </p>
         </div>
 
@@ -130,6 +136,7 @@
           </p>
         </div>
       </div>
+
       <div class="flex justify-center ">
         <router-link to="/signin">
           <button
@@ -138,14 +145,13 @@
             Cancel
           </button>
         </router-link>
-       
+
         <button
           @click="submit"
           class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
         >
           Confirm
         </button>
-     
       </div>
     </content-layout>
   </div>
@@ -157,7 +163,6 @@ export default {
   // components: { Toggle },
   data() {
     return {
-      isUser: true,
       entered: {
         fname: "",
         lname: "",
@@ -180,6 +185,7 @@ export default {
         password: false,
       },
       isValid: false,
+      isUsernameRepeat: false,
       country: [],
     };
   },
@@ -207,9 +213,9 @@ export default {
           ? true
           : false;
       this.invalid.ct_id =
-        this.entered.ct_id === undefined || this.entered.ct_id === ""
-          ? true
-          : false;
+        this.entered.ct_id === undefined ||
+        this.entered.ct_id === "" ||
+        this.entered.ct_id === null;
       // this.invalid.phoneNumber =
       //   this.entered.phoneNumber === undefined ||
       //   this.entered.phoneNumber === ""
@@ -235,30 +241,32 @@ export default {
         }
       }
       if (this.isValid) {
-        // this.entered.firstname = "";
-        // this.entered.lastname = "";
-        // this.entered.email = "";
-        // this.entered.country = "";
-        // // this.entered.phoneNumber = "";
-        // // this.entered.idCard = "";
-        // this.entered.username = "";
-        // this.entered.password = "";
+        this.entered.firstname = "";
+        this.entered.lastname = "";
+        this.entered.email = "";
+        this.entered.ct_id = "";
+        // this.entered.phoneNumber = "";
+        // this.entered.idCard = "";
+        this.entered.username = "";
+        this.entered.password = "";
         axios
           .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
           .then((res) => {
             console.log(res.data);
-            alert("Register successfully")
+            alert("Register successfully");
+            this.$router.push("/signin");
           })
           .catch((err) => {
-            console.log(err);
+            if (err.response.status == 403) {
+              this.isUsernameRepeat = true;
+            } else {
+              console.log(err);
+            }
           });
- 
       }
-    
     },
     fetchCountry() {
-      axios.get(`${process.env.VUE_APP_API}/country/getCountry`)
-      .then((res) => {
+      axios.get(`${process.env.VUE_APP_API}/country/getCountry`).then((res) => {
         console.log(res.data);
         this.country = res.data.data;
         // console.log(this.country);

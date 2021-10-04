@@ -10,8 +10,6 @@
         class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
       />
     </router-link>
-     
-
       <div
         class="flex flex-row justify-around w-full laptop:ml-5 items-center h-32"
       >
@@ -28,7 +26,7 @@
           to="/signin"
           class="text-indigo rounded-full hover:duration-300  hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
         >
-          SignIn
+          Sign In
         </router-link>
       </div>
     </div>
