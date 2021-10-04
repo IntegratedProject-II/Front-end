@@ -56,33 +56,33 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapMutations, mapState } from "vuex";
-export default {
-  computed: {
-    ...mapState({
-      countSignin: (state) => state.signin.count,
-    }),
-  },
+// <script>
+// import { mapActions, mapMutations, mapState } from "vuex";
+// export default {
+//   computed: {
+//     ...mapState({
+//       countSignin: (state) => state.signin.count,
+//     }),
+//   },
 
-  methods: {
-    ...mapActions({
-      incrementsignin:"signin/incrementby5",
-      decrementsignin:"signin/decrementby5",
-    }),
+//   methods: {
+//     ...mapActions({
+//       incrementsignin:"signin/incrementby5",
+//       decrementsignin:"signin/decrementby5",
+//     }),
 
-    ...mapMutations("signin", ["increment", "decrement"])
-  },
+//     ...mapMutations("signin", ["increment", "decrement"])
+//   },
 
-  mounted() {
-    console.log(this.countSignin);
-    console.log(this.$store.state.member.count);
-    this.incrementsignin();
-    this.$store.dispatch("member/incrementby5");
+//   mounted() {
+//     console.log(this.countSignin);
+//     console.log(this.$store.state.member.count);
+//     this.incrementsignin();
+//     this.$store.dispatch("member/incrementby5");
 
-    this.increment(2)
-    console.log("by5 " + this.$store.state.signin.count);
-    console.log("Mb" + this.$store.state.member.count);
-  },
-};
-</script>
+//     this.increment(2)
+//     console.log("by5 " + this.$store.state.signin.count);
+//     console.log("Mb" + this.$store.state.member.count);
+//   },
+// };
+// </script>

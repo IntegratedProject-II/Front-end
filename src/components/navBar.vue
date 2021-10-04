@@ -4,12 +4,12 @@
     <div
       class="flex flex-row items-center laptop:divide-x laptop:divide-gray-300 laptop:px-10"
     >
-    <router-link to="/">
-       <img
-        src="@/assets/logo.png"
-        class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
-      />
-    </router-link>
+      <router-link to="/">
+        <img
+          src="@/assets/logo.png"
+          class="h-32 tablet:h-40 desktop:h-52 desktop:mr-5 "
+        />
+      </router-link>
       <div
         class="flex flex-row justify-around w-full laptop:ml-5 items-center h-32"
       >
@@ -24,9 +24,17 @@
         </router-link>
         <router-link
           to="/signin"
+          v-if="getRole == ''"
           class="text-indigo rounded-full hover:duration-300  hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
         >
           Sign In
+        </router-link>
+        <router-link
+          to="/signout"
+          v-else
+          class="text-indigo rounded-full hover:duration-300  hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
+        >
+          Sign Out
         </router-link>
       </div>
     </div>
@@ -64,8 +72,11 @@
           >
             {{ item.name }}
           </router-link>
-          <router-link to="/signin" class="focus:bg-silver"> 
-            SignIn
+          <router-link  v-if="getRole == ''" to="/signin" class="focus:bg-silver">
+            Sign In
+          </router-link>
+          <router-link v-else to="/signout" class="focus:bg-silver">
+            Sign Out
           </router-link>
         </div>
       </div>
@@ -73,6 +84,7 @@
   </div>
 </template>
 <script>
+import { mapState} from "vuex";
 export default {
   data() {
     return {
@@ -83,6 +95,7 @@ export default {
         { name: "History", route: "/history" },
         { name: "Member", route: "/member" },
       ],
+ 
     };
   },
   methods: {
@@ -92,8 +105,13 @@ export default {
       } else {
         this.isDropDown = false;
       }
-      console.log("Drop down status : " + this.isDropDown);
+      // console.log("Drop down status : " + this.isDropDown);
     },
+  },
+  computed: {
+    ...mapState({
+      getRole:(state) => state.signin.role,
+    }),
   },
 };
 </script>

@@ -1,12 +1,16 @@
 export const register = {
     namespaced: true,
     state: {
-        role: ""
+        role: "",
+        // username:"",
     },
     mutations:{
         setRole(state,payload){
             state.role = payload
-        }
+        },
+        // setUsername(state,payload){
+        //     state.username = payload
+        // }
     },
     actions: {
         setRole(context,payload) {
