@@ -1,10 +1,10 @@
 <template>
   <div class="signIn">
-    <img
+    <!-- <img
       src="@/assets/bg-signIn.png"
       style="z-index :-1;"
       class="absolute z-0 top-0 left-0 w-screen h-screen object-contain bg-indigo"
-    />
+    /> -->
 
     <content-layout class="my-36  flex justify-center">
       <div class="m-5 ">
@@ -51,7 +51,7 @@
         </button>
       </div>
 
-      <div class="border-t-2 border-gray-500 mx-20 ">
+      <div class="border-t-2 border-gray-500 tablet:mx-20 mx-5">
         Not a member ?
         <router-link to="/register" class="underline">
           Register
