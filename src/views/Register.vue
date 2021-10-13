@@ -1,13 +1,13 @@
 <template>
   <div class="register">
-    <content-layout class="m-16">
+    <content-layout class="tablet:m-16 m-2 mt-10">
       <div class="relative">
         <p class="text-ash tablet:text-4xl font-bold text-center">Register</p>
       </div>
 
       <!-- input part -->
       <Form @submit="submit" v-slot="{ errors }">
-        <div class="grid grid-cols-2 gap-x-14 px-24 ">
+        <div class="laptop:grid laptop:grid-cols-2 laptop:gap-x-14 tablet:px-24 px-5 ">
           <!-- firstName -->
           <div>
             <label for="fname">First name</label><br />
@@ -133,7 +133,7 @@
               class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
               rules="min_12|upper_letter|required"
             />
-            <p class="text-gray-400 text-sm px-5">
+            <p class="text-gray-400 tablet:text-sm text-xs px-5">
               Minimum length 12 characters and contain 1 uppercase letter
             </p>
             <p class="text-red-500">
@@ -142,9 +142,9 @@
           </div>
         </div>
 
-        <div class="flex justify-center ">
+        <div class="flex justify-center">
           <button
-            class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
+            class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white "
           >
             <router-link to="/signin">
               Cancel
@@ -152,7 +152,7 @@
           </button>
 
           <button
-            class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
+            class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
           >
             Confirm
           </button>
