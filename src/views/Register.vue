@@ -3,85 +3,83 @@
     <content-layout class="m-16">
       <div class="relative">
         <p class="text-ash tablet:text-4xl font-bold text-center">Register</p>
-
-        <!-- change role btn  -->
-        <!-- <Toggle
-          v-model="isUser"
-          class="absolute right-0 top-5  px-5"
-          :classes="{
-            container: 'outline-none',
-            toggleOn: 'bg-gray-400 text-white border-gray-200',
-            label: ' w-5 p-1 ',
-          }"
-          onLabel="user"
-          offLabel="admin"
-        ></Toggle> -->
       </div>
 
       <!-- input part -->
-      <div class="grid grid-cols-2 gap-x-14 px-24 ">
-        <!-- firstName -->
-        <div>
-          <label for="fname">First name</label><br />
-          <input
-            type="text"
-            v-model.trim="entered.fname"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
-          />
-          <p v-if="invalid.fname" class="text-red-500">
-            Please enter first name !
-          </p>
-        </div>
+      <Form @submit="submit" v-slot="{ errors }">
+        <div class="grid grid-cols-2 gap-x-14 px-24 ">
+          <!-- firstName -->
+          <div>
+            <label for="fname">First name</label><br />
+            <Field
+              name="fname"
+              type="text"
+              v-model.trim="entered.fname"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+              rules="required"
+            />
+            <p class="text-red-500">
+              {{ errors.fname }}
+            </p>
+          </div>
 
-        <!-- lastName -->
-        <div>
-          <label for="lname">Last name</label><br />
-          <input
-            type="text"
-            v-model.trim="entered.lname"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
-          />
-          <p v-if="invalid.lname" class="text-red-500">
-            Please enter last name !
-          </p>
-        </div>
+          <!-- lastName -->
+          <div>
+            <label for="lname">Last name</label><br />
+            <Field
+              name="lname"
+              type="text"
+              v-model.trim="entered.lname"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+              rules="required"
+            />
+            <p class="text-red-500">
+              {{ errors.lname }}
+            </p>
+          </div>
 
-        <!-- email -->
-        <div>
-          <label for="email">Email</label><br />
-          <input
-            type="email"
-            v-model.trim="entered.email"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
-          />
-          <p v-if="invalid.email" class="text-red-500">
-            Please enter email !
-          </p>
-        </div>
+          <!-- email -->
+          <div>
+            <label for="email">Email</label><br />
+            <Field
+              name="email"
+              type="email"
+              v-model.trim="entered.email"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+              rules="required|email"
+            />
+            <p class="text-red-500">
+              {{ errors.email }}
+            </p>
+          </div>
 
-        <!-- country -->
-        <div>
-          <label for="country">Country</label><br />
-          <select
-            v-model.trim="entered.ct_id"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
-          >
-            <option
-              v-for="item in country"
-              :key="item.ct_id"
-              :value="item.ct_id"
-              >{{ item.country }}</option
+          <!-- country -->
+          <div>
+            <label for="country">Country</label><br />
+            <Field
+              name="country"
+              as="select"
+              v-model="entered.ct_id"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+              rules="required"
             >
-          </select>
-          <p v-if="invalid.ct_id" class="text-red-500">
-            Please enter country!
-          </p>
-        </div>
+              <option :value="0"></option>
+              <option
+                v-for="item in country"
+                :key="item.ct_id"
+                :value="item.ct_id"
+                >{{ item.country }}</option
+              >
+            </Field>
+            <p class="text-red-500">
+              {{ errors.country }}
+            </p>
+          </div>
 
-        <!-- admin role  -->
-        <!-- phone number -->
+          <!-- admin role  -->
+          <!-- phone number -->
 
-        <!-- <div v-if="!isUser">
+          <!-- <div v-if="!isUser">
           <label for="phoneNumber">Phone number</label><br />
           <input
             type="number"
@@ -105,69 +103,106 @@
           </p>
         </div> -->
 
-        <!-- end admin role -->
+          <!-- end admin role -->
 
-        <!-- username -->
-        <div>
-          <label for="username">Username</label><br />
-          <input
-            type="text"
-            v-model.trim="entered.username"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9 "
-          />
-          <p v-if="invalid.username" class="text-red-500">
-            Please enter username!
-          </p>
-          <p v-if="isUsernameRepeat" class="text-red-500">
-            This username already exists.Please use a new username
-          </p>
+          <!-- username -->
+          <div>
+            <label for="username">Username</label><br />
+            <Field
+              name="username"
+              type="text"
+              v-model.trim="entered.username"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9 "
+              rules="required"
+            />
+            <p class="text-red-500">
+              {{ errors.username }}
+            </p>
+            <p v-if="isUsernameRepeat" class="text-red-500">
+              This username already exists.Please use a new username
+            </p>
+          </div>
+
+          <!-- password -->
+          <div>
+            <label for="password">Password</label><br />
+            <Field
+              name="password"
+              type="password"
+              v-model.trim="entered.password"
+              class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
+              rules="min_12|upper_letter|required"
+            />
+            <p class="text-gray-400 text-sm px-5">
+              Minimum length 12 characters and contain 1 uppercase letter
+            </p>
+            <p class="text-red-500">
+              {{ errors.password }}
+            </p>
+          </div>
         </div>
 
-        <!-- password -->
-        <div>
-          <label for="password">Password</label><br />
-          <input
-            type="password"
-            v-model.trim="entered.password"
-            class="w-full rounded-full border border-black focus:outline-none px-2 h-9"
-          />
-          <p v-if="invalid.password" class="text-red-500">
-            Please enter password!
-          </p>
+        <div class="flex justify-center ">
+          <button
+            class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
+          >
+            <router-link to="/signin">
+              Cancel
+            </router-link>
+          </button>
+
+          <button
+            class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
+          >
+            Confirm
+          </button>
         </div>
-      </div>
-
-      <div class="flex justify-center ">
-        <button
-          class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 m-10 w-36 text-white "
-        >
-          <router-link to="/signin">
-            Cancel
-          </router-link>
-        </button>
-
-        <button
-          @click="submit"
-          class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 m-10 w-36 text-white"
-        >
-          Confirm
-        </button>
-      </div>
+      </Form>
     </content-layout>
   </div>
 </template>
 <script>
 import axios from "axios";
-// import Toggle from "@vueform/toggle";
+import { Form, Field, defineRule } from "vee-validate";
+defineRule("min_12", (value) => {
+  if (value.length < 12) {
+    return "This password is Invalid";
+  }
+  return true;
+});
+defineRule("upper_letter", (value) => {
+  if (!/(?=.*[A-Z])/.test(value)) {
+    return "This password is Invalid ";
+  }
+  return true;
+});
+defineRule("required", (value) => {
+
+  if (!value) {
+    return "This field is required ";
+  }
+
+  return true;
+});
+defineRule("email", (value) => {
+  if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+    return "This field must be a valid email ";
+  }
+
+  return true;
+});
 export default {
-  // components: { Toggle },
+  components: {
+    Field,
+    Form,
+  },
   data() {
     return {
       entered: {
         fname: "",
         lname: "",
         email: "",
-        ct_id: null,
+        ct_id: 0,
         // phoneNumber: "",
         // idCard: "",
         username: "",
@@ -189,6 +224,7 @@ export default {
       country: [],
     };
   },
+
   methods: {
     // changeRole() {
     //   if (!this.isUser) {
@@ -242,7 +278,7 @@ export default {
           this.isValid = false;
         }
       }
-      if (this.isValid) {
+
         axios
           .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
           .then((res) => {
@@ -265,7 +301,7 @@ export default {
         // this.entered.idCard = "";
         this.entered.username = "";
         this.entered.password = "";
-      }
+      
     },
     fetchCountry() {
       axios.get(`${process.env.VUE_APP_API}/country/getCountry`).then((res) => {
@@ -278,7 +314,8 @@ export default {
   mounted() {
     this.fetchCountry();
   },
+  updated() {
+    console.log(this.country.ct_id);
+  },
 };
 </script>
-
-<style src="@vueform/toggle/themes/default.css"></style>
