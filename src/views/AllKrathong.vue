@@ -50,11 +50,13 @@
 <script>
 import axios from "axios";
 // import {  mapMutations } from "vuex";
+
 export default {
   data() {
     return {
       ktImage: [],
       isUser: true,
+      KrathongId : 0
     };
   },
   methods: {
@@ -79,6 +81,7 @@ export default {
   },
   mounted() {
     this.fetchKrathongImage();
+    
   },
 };
 </script>

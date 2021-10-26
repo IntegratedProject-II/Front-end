@@ -1,7 +1,7 @@
 export const krathong = {
     namespaced: true,
     state: {
-        kt_id: ""
+        kt_id: "",
     },
     mutations:{
         setKrathongId(state,payload){

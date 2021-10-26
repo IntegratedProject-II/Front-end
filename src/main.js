@@ -13,4 +13,5 @@ createApp(App).component('content-layout',content)
 .component('border-circle',circle)
 .component('navBar-layout',navBar)
 .component('item-preview',itemPreview)
+
 .use(store).use(router).mount('#app')

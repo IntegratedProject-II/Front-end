@@ -38,7 +38,7 @@ const routes = [
     component:Register
   },
   {
-    path:'/krathong/:id',
+    path:'/krathong/:kt_id',
     name:'Krathong',
     component : Krathong
   }

@@ -209,17 +209,17 @@ export default {
         password: "",
         role_id: 1,
       },
-      invalid: {
-        fname: false,
-        lname: false,
-        email: false,
-        ct_id: false,
-        // phoneNumber: false,
-        // idCard: false,
-        username: false,
-        password: false,
-      },
-      isValid: false,
+      // invalid: {
+      //   fname: false,
+      //   lname: false,
+      //   email: false,
+      //   ct_id: false,
+      //   // phoneNumber: false,
+      //   // idCard: false,
+      //   username: false,
+      //   password: false,
+      // },
+      // isValid: false,
       isUsernameRepeat: false,
       country: [],
     };
@@ -236,49 +236,12 @@ export default {
     //   }
     // },
     submit() {
-      this.invalid.fname =
-        this.entered.fname === undefined || this.entered.fname === ""
-          ? true
-          : false;
-      this.invalid.lname =
-        this.entered.lname === undefined || this.entered.lname === ""
-          ? true
-          : false;
-      this.invalid.email =
-        this.entered.email === undefined || this.entered.email === ""
-          ? true
-          : false;
-      this.invalid.ct_id =
-        this.entered.ct_id === undefined ||
-        this.entered.ct_id === "" ||
-        this.entered.ct_id === null
-          ? true
-          : false;
-      // this.invalid.phoneNumber =
-      //   this.entered.phoneNumber === undefined ||
-      //   this.entered.phoneNumber === ""
-      //     ? true
-      //     : false;
-      // this.invalid.idCard =
-      //   this.entered.idCard === undefined || this.entered.idCard === ""
-      //     ? true
-      //     : false;
-      this.invalid.username =
-        this.entered.username === undefined || this.entered.username === ""
-          ? true
-          : false;
-      this.invalid.password =
-        this.entered.password === undefined || this.entered.password === ""
-          ? true
-          : false;
-
-      this.isValid = true;
-      for (const [, value] of Object.entries(this.invalid)) {
-        if (value) {
-          this.isValid = false;
-        }
-      }
-
+      // this.isValid = true;
+      // for (const [, value] of Object.entries(this.invalid)) {
+      //   if (value) {
+      //     this.isValid = false;
+      //   }
+      // }
         axios
           .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
           .then((res) => {
@@ -293,21 +256,12 @@ export default {
               console.log(err);
             }
           });
-        this.entered.fname = "";
-        this.entered.lname = "";
-        this.entered.email = "";
-        this.entered.ct_id = "";
-        // this.entered.phoneNumber = "";
-        // this.entered.idCard = "";
-        this.entered.username = "";
-        this.entered.password = "";
       
     },
     fetchCountry() {
       axios.get(`${process.env.VUE_APP_API}/country/getCountry`).then((res) => {
         console.log(res.data);
         this.country = res.data.data;
-        // console.log(this.country);
       });
     },
   },
