@@ -2,7 +2,9 @@
   <div>
     <navBar-layout />
     <content-layout>
-      <div class="laptop:flex laptop:justify-center p-10 gap-10">
+      <div
+        class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
+      >
         <div>
           <img
             :src="
@@ -34,6 +36,13 @@
             >
               Loy
             </button>
+            <router-link to="/loy">
+              <button
+                class=" text-indigo bg-coin rounded-full hover:duration-300 hover:text-silver hover:bg-white p-2 m-10 px-10"
+              >
+                Back
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -84,11 +93,10 @@ export default {
         .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
         .then((res) => {
           console.log(res.data);
-          // this.$router.push("/location");
+          // this.$router.push("/place");
         })
         .catch((err) => {
-            console.log(err);
-          
+          console.log(err);
         });
     },
   },

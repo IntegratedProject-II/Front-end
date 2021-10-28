@@ -6,6 +6,7 @@ import History from '@/views/History.vue'
 import AllKrathong from '@/views/AllKrathong.vue'
 import Register from '@/views/Register.vue'
 import Krathong from '@/views/DetailKrathong.vue'
+import Place from '@/views/Place.vue'
 const routes = [
   {
     path: '/',
@@ -41,6 +42,11 @@ const routes = [
     path:'/krathong/:kt_id',
     name:'Krathong',
     component : Krathong
+  },
+  {
+    path:'/place',
+    name:'Placec',
+    component : Place
   }
 
 ]
