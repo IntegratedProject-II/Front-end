@@ -63,6 +63,17 @@
 <script>
 import axios from "axios";
 import { mapActions } from "vuex";
+
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
 export default {
   data() {
     return {
@@ -102,7 +113,8 @@ export default {
         axios
           .post(`${process.env.VUE_APP_API}/person/signin`, this.entered)
           .then((res) => {
-            this.setRole(res.data);
+            this.setRole(res.data.role);
+            setCookie("token", res.data.token,0.5);
             this.$router.push("/");
             // console.log(res.data);
           })

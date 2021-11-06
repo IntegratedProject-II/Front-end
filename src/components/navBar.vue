@@ -29,13 +29,13 @@
         >
           Sign In
         </router-link>
-        <router-link
-          to="/signout"
+        <button
+          @click="signOut"
           v-else
           class="text-indigo rounded-full hover:duration-300  hover:bg-white w-10 tablet:w-24  desktop:w-36 px-4 py-2 text-center bg-lemon "
         >
           Sign Out
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -72,19 +72,36 @@
           >
             {{ item.name }}
           </router-link>
-          <router-link  v-if="getRole == ''" to="/signin" class="focus:bg-silver">
+          <router-link
+            v-if="getRole == ''"
+            to="/signin"
+            class="focus:bg-silver"
+          >
             Sign In
           </router-link>
-          <router-link v-else to="/signout" class="focus:bg-silver">
+
+          <button v-else @click="signOut" class="focus:bg-silver">
             Sign Out
-          </router-link>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapState} from "vuex";
+import { mapState, mapActions } from "vuex";
+import axios from "axios";
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
 export default {
   data() {
     return {
@@ -95,10 +112,12 @@ export default {
         { name: "History", route: "/history" },
         { name: "Member", route: "/member" },
       ],
- 
     };
   },
   methods: {
+    ...mapActions({
+      setRole: "signin/setRole",
+    }),
     dropDown() {
       if (!this.isDropDown) {
         this.isDropDown = true;
@@ -107,10 +126,24 @@ export default {
       }
       // console.log("Drop down status : " + this.isDropDown);
     },
+    signOut() {
+      axios
+        .delete(`${process.env.VUE_APP_API}/person/signout`, {
+          data: { token: getCookie("token") },
+        })
+        .then(() => {
+          this.setRole("");
+          this.$router.push("/");
+          console.log("signOut method");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   computed: {
     ...mapState({
-      getRole:(state) => state.signin.role,
+      getRole: (state) => state.signin.role,
     }),
   },
 };
