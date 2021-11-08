@@ -42,7 +42,7 @@ jobs:
          username: ${{ secrets.USERNAME }}
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          source: ./docker-compose.yml
-         target: ./front-end
+         target: ./Docker-front-end
     
    deploy:
       needs: build
