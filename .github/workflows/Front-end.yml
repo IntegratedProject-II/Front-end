@@ -40,7 +40,7 @@ jobs:
        with: 
          host: ${{ secrets.HOST }}
          username: ${{ secrets.USERNAME }}
-         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         key: ${{ secrets.KEY }}
          source: ./docker-compose.yml
          target: ./Docker-front-end
     
@@ -54,7 +54,7 @@ jobs:
         with:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.SSH_USERNAME }}
-         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         key: ${{ secrets.KEY }}
          script: |
            docker-compose -f Docker-front-end/docker-compose.yml down 
            docker pull ghcr.io/integratedproject-ii/front-end:main 
