@@ -39,10 +39,10 @@ jobs:
        uses: appleboy/scp-action@master
        with: 
          host: ${{ secrets.HOST }}
-         username: ${{ secrets.SSH_USERNAME }}
-         password: ${{ secrets.SSH_PASSWORD }}
+         username: ${{ secrets.USERNAME }}
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
          source: ./docker-compose.yml
-         target: ./Docker-front-end
+         target: ./front-end
     
    deploy:
       needs: build
@@ -54,7 +54,7 @@ jobs:
         with:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.SSH_USERNAME }}
-         password: ${{ secrets.SSH_PASSWORD }}
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
          script: |
            docker-compose -f Docker-front-end/docker-compose.yml down 
            docker pull ghcr.io/integratedproject-ii/front-end:main 
