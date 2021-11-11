@@ -7,6 +7,7 @@ import AllKrathong from '@/views/AllKrathong.vue'
 import Register from '@/views/Register.vue'
 import Krathong from '@/views/DetailKrathong.vue'
 import Place from '@/views/Place.vue'
+import AddKrathong from '@/views/AddKrathong.vue'
 const routes = [
   {
     path: '/',
@@ -45,8 +46,13 @@ const routes = [
   },
   {
     path:'/place',
-    name:'Placec',
+    name:'Place',
     component : Place
+  },
+  {
+    path:'/addKrathong',
+    name:'AddKrathong',
+    component : AddKrathong
   }
 
 ]

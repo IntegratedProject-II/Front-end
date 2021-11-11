@@ -73,6 +73,16 @@ export default {
   methods: {
     sortBy() {
       console.log(this.sortSelected);
+      // switch (this.sortSelected) {
+      //   case "lastest":
+          
+      //     break;
+      //   case "earliest":
+
+      //   break;
+      //   default:
+      //     break;
+      // }
     },
   },
 };

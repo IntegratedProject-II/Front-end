@@ -260,7 +260,7 @@ export default {
     },
     fetchCountry() {
       axios.get(`${process.env.VUE_APP_API}/country/getCountry`).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.country = res.data.data;
       });
     },

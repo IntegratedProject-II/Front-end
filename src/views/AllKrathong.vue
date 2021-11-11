@@ -13,6 +13,9 @@
           {{ this.isUser }}
         </button>
       </p>
+      <router-link to="/addKrathong">
+       add Krathong btn(Admin)
+      </router-link>
       <div class="grid grid-cols-3 gap-10 w-full">
         <ul v-for="item in ktImage" :key="item.kt_id">
           <router-link :to="`/krathong/${item.kt_id}`">
@@ -56,7 +59,7 @@ export default {
     return {
       ktImage: [],
       isUser: true,
-      KrathongId : 0
+      KrathongId: 0,
     };
   },
   methods: {
@@ -81,7 +84,6 @@ export default {
   },
   mounted() {
     this.fetchKrathongImage();
-    
   },
 };
 </script>

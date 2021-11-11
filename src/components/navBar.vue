@@ -134,7 +134,7 @@ export default {
         .then(() => {
           this.setRole("");
           this.$router.push("/");
-          console.log("signOut method");
+          // console.log("signOut method");
         })
         .catch((err) => {
           console.log(err);
