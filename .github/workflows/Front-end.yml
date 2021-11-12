@@ -22,9 +22,10 @@ jobs:
          username: ${{ github.repository_owner }}
          password: ${{ secrets.TOKEN_GITHUB_LOYKRATHONG }}
              
-#      - name: Create env file
-#        run: |
-#           echo VUE_APP_API=${{ secrets.VUE_APP_API }} >> .env
+     - name: Create env file
+       run: |
+          touch .env
+          echo VUE_APP_API=${{ secrets.VUE_APP_API }} >> .env
           
      - name: Build image and push Dockerfile
        uses: docker/build-push-action@v2
