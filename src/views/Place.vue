@@ -7,8 +7,9 @@
       >
         Place
       </p>
-         <!-- just copy form detailKT  -->
-      <div class="grid grid-cols-3 gap-10 w-full">
+      <p>Wish :{{this.getWish}}</p>
+      <!-- just copy form detailKT  -->
+      <!-- <div class="grid grid-cols-3 gap-10 w-full">
         <ul v-for="item in ktImage" :key="item.kt_id">
           <router-link :to="`/krathong/${item.kt_id}`">
             <div class="flex justify-center">
@@ -29,7 +30,6 @@
             </div>
           </router-link>
 
-          <!-- admin btn  -->
           <div v-if="!isUser" class="flex justify-center">
             <button
               class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
@@ -38,12 +38,13 @@
             </button>
           </div>
         </ul>
-      </div>
+      </div> -->
     </content-layout>
   </div>
 </template>
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
       fetchPlace(){
-        //   just copy form detailKT 
+        //   just copy form detailKT
           axios
         .get(
           `${process.env.VUE_APP_API}/krathong/getKrathong/${this.$route.params.kt_id}`
@@ -62,5 +63,11 @@ export default {
         });
       }
   },
+   computed: {
+    ...mapState({
+      getWish: (state) => state.krathong.wish,
+    })
+  },
+ 
 };
 </script>

@@ -26,7 +26,7 @@
               class="rounded-3xl py-1 px-2 w-5/6 text-indigo  "
             />
             <p v-if="invalid.wish" class="text-red-500 px-20">
-              Please enter wish!
+              Please enter wish !
             </p>
           </div>
           <div class="flex justify-end">
@@ -51,6 +51,7 @@
 </template>
 <script>
 import axios from "axios";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -65,7 +66,7 @@ export default {
         },
       },
       entered: {
-        wish: null,
+        wish: "",
       },
       invalid: {
         wish: null,
@@ -73,7 +74,12 @@ export default {
       kt_id: "",
     };
   },
+
   methods: {
+    ...mapActions({
+      setKrathongId: "krathong/setKrathongId",
+      setWish: "krathong/setWish",
+    }),
     fetchKrathong() {
       axios
         .get(
@@ -84,24 +90,37 @@ export default {
         });
     },
     loy() {
-      console.log(this.entered.wish);
       this.invalid.wish =
         this.entered.wish === undefined || this.entered.wish === ""
           ? true
           : false;
-      axios
-        .post(`${process.env.VUE_APP_API}/person/register`, this.entered)
-        .then((res) => {
-          console.log(res.data);
-          // this.$router.push("/place");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
+      if (this.getRole == "") {
+        this.setKrathongId(this.kt_id);
+        this.setWish(this.entered.wish);
+        this.$router.push("/place");
+      } else {
+        axios
+          .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)
+          .then((res) => {
+            // console.log(res.data);
+            this.setKrathongId(res.data.kt_id);
+            this.setWish(res.data.wish);
+            this.$router.push("/place");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
   mounted() {
     this.fetchKrathong();
+  },
+  computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+    }),
   },
 };
 </script>
