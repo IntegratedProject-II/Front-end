@@ -8,7 +8,7 @@
         <div>
           <img
             :src="
-              'http://52.187.149.36/api/image/krathongImage/' +
+              'https://www.loykrathong.tech/api/image/krathongImage/' +
                 this.$route.params.kt_id
             "
             class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
