@@ -18,6 +18,7 @@
        d Krathong btn(Admin)
       </router-link>
       <div class="grid grid-cols-3 gap-10 w-full">
+        
         <ul v-for="item in ktImage" :key="item.kt_id">
           <router-link :to="`/krathong/${item.kt_id}`">
             <div class="flex justify-center">

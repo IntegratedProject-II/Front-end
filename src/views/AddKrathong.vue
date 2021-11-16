@@ -6,10 +6,6 @@
       >
         <Form @submit="submit" v-slot="{ errors }">
           <div>
-            <img
-              src="/src/assets/kratong2_color.png"
-              class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
-            />
             <button @click="choosePhoto">
               Choose photo
             </button>
@@ -29,11 +25,48 @@
             </div>
             <div>
               <label for="Type">
-                <Field name="type" as="select"
-                v-model="entered.t_id"
-                rules = "required" />
+                Type
               </label>
-              
+              <br />
+
+              <Field
+                name="type"
+                as="select"
+                v-model="entered.t_id"
+                rules="required"
+              >
+                <option
+                  v-for="type in types"
+                  :key="type.value"
+                  :value="type.value"
+                >
+                  {{ type.value }}
+                </option>
+              </Field>
+            </div>
+            <div>
+              <label for="Total">
+                Total
+              </label>
+              <Field
+                name="total"
+                type="number"
+                v-model="entered.amount"
+                rules="required"
+              />
+              <!-- <Field name="total" type="text" v-model="entered.amount"></Field> -->
+            </div>
+            <div>
+              <label for="krathongDetail">
+                Detail
+              </label>
+              <Field
+                name="detail"
+                type="text"
+                v-model.trim="entered.detail"
+                rules="required"
+              />
+              <p class="text-red-500">{{ errors.detail }}</p>
             </div>
 
             <div class="flex justify-end">
@@ -78,6 +111,15 @@ export default {
         detail: "",
         t_id: 0,
       },
+      types: [
+        { value: "banana leaf" },
+        { value: "ice" },
+        { value: "bread" },
+        { value: "coconut shell" },
+        { value: "boat and candle" },
+        { value: "boat and flower" },
+        { value: "other" },
+      ],
     };
   },
   components: {

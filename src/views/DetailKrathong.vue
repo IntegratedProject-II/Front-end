@@ -66,7 +66,11 @@ export default {
         },
       },
       entered: {
+        h_date:"",
         wish: "",
+        kt_id:0,
+        user_id:0,
+        p_id:0,
       },
       invalid: {
         wish: null,
@@ -96,9 +100,9 @@ export default {
           : false;
 
       if (this.getRole == "") {
-        this.setKrathongId(this.kt_id);
+        this.setKrathongId(this.$route.params.kt_id);
         this.setWish(this.entered.wish);
-        this.$router.push("/place");
+        this.$router.push(`/floating/${this.$route.params.kt_id}`);
       } else {
         axios
           .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)

@@ -8,6 +8,7 @@ import Register from '@/views/Register.vue'
 import Krathong from '@/views/DetailKrathong.vue'
 import Place from '@/views/Place.vue'
 import AddKrathong from '@/views/AddKrathong.vue'
+import LoyrResult from '@/views/LoyResult.vue'
 const routes = [
   {
     path: '/',
@@ -53,6 +54,11 @@ const routes = [
     path:'/addKrathong',
     name:'AddKrathong',
     component : AddKrathong
+  },
+  {
+    path:'/floating/:kt_id',
+    name:'LoyResult',
+    component : LoyrResult
   }
 
 ]

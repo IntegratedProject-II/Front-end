@@ -1,6 +1,7 @@
 export const signin = {
     namespaced: true,
     state: {
+        user_id:0,
         role: "",
         isSignIn: false,
         
