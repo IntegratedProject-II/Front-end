@@ -1,7 +1,7 @@
 <template>
   <div>
     <navBar-layout />
-    <img src="/src/assets/bg-signIn.png" />
+    <!-- <img src="/src/assets/bg-signIn.png" /> -->
       <div>
        
         <div class="flex justify-center">
@@ -19,8 +19,8 @@
           class="rounded-lg bg-lemon text-indigo p-5 w-max flex justify-center"
         >
           <div>
-            <!-- <p>{{ this.getWish }}</p>  -->
-            <p>make a wish</p>
+            <p>{{ this.getWish }}</p> 
+        
           </div>
         </div>
       </div>
