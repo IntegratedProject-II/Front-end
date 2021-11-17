@@ -14,6 +14,19 @@ module.exports = {
         'rose':'#DA9999'
 
         
+      },
+      keyframes:{
+        'floating': {
+          '0%, 100%':{
+            'transform':'translateY(-50px)'
+          },
+          '50%':{
+            'transform':'translateY(0px)'
+          }
+        }
+      },
+      animation:{
+        'floating':'floating 3s ease-in-out infinite'
       }
     },
     screens: {

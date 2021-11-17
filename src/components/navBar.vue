@@ -108,9 +108,9 @@ export default {
       isDropDown: false,
       route: [
         { name: "Home", route: "/" },
-        { name: "Loy", route: "/loy" },
+        { name: "Krathong", route: "/loy" },
         { name: "History", route: "/history" },
-        { name: "Member", route: "/member" },
+        { name: "About us", route: "/member" },
       ],
     };
   },
