@@ -3,6 +3,7 @@ export const krathong = {
     state: {
         kt_id: "",
         wish:"",
+        tp_id:""
     },
     mutations:{
         setKrathongId(state,payload){
@@ -10,6 +11,9 @@ export const krathong = {
         },
         setWish(state,payload){
             state.wish = payload
+        },
+        setTypePlace(state,payload){
+            state.tp_id = payload
         }
     },
     actions: {
@@ -18,6 +22,9 @@ export const krathong = {
         },
         setWish(context,payload) {
             context.commit("setWish",payload)
+        },
+        setTypePlace(context,payload) {
+            context.commit("setTypePlace",payload)
         }
     },
 }

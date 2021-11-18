@@ -102,7 +102,7 @@ export default {
         if (this.getRole == "") {
         this.setKrathongId(this.$route.params.kt_id);
         this.setWish(this.entered.wish);
-        this.$router.push(`/floating/${this.$route.params.kt_id}`);
+        this.$router.push(`/floating`);
       } else {
         // axios
         //   .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)
@@ -115,6 +115,8 @@ export default {
         //   .catch((err) => {
         //     console.log(err);
         //   });
+        this.setKrathongId(this.$route.params.kt_id);
+        this.setWish(this.entered.wish);
          this.$router.push("/placeType");
       }
       }

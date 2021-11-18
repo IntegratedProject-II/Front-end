@@ -9,7 +9,8 @@
       <p
         class="text-ash tablet:text-4xl font-bold text-center  text-xl m-8 tablet:m-16"
       >
-        Transaction Log
+        Transaction Log <br/>
+        Sorry, This Function not available
       </p>
 
       <!-- content -->
