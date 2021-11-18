@@ -2,9 +2,9 @@
   <div>
     <navBar-layout />
     <div class="relative">
-      <img src="../assets/defaultResult.png" class="z-0 absolute pr-7 " />
+      <img src="../assets/bg1.gif" class="z-0 px-7 " />
 
-      <div class="flex justify-end">
+      <div class="flex justify-end z-40 absolute bottom-0 right-0">
         <router-link
           to="/"
           class=" text-indigo bg-coin rounded-full hover:duration-300 hover:text-silver hover:bg-white p-2 m-10 px-10"
@@ -12,10 +12,8 @@
           Exit
         </router-link>
       </div>
-    
-    </div>
-    <div class="relative top-64 px-8">
-       <marquee truespeed="180">
+       <div class="absolute bottom-0 w-full px-7">
+       <marquee class="pt-16" truespeed="180">
       <div class="z-10 relative w-max  animate-floating">
         <div class="flex justify-center ">
           <img
@@ -27,14 +25,16 @@
           />
         </div>
         <div
-          class="rounded-lg bg-lemon text-indigo p-5 w-max flex justify-center absolute right-4 bottom-4"
+          class=" rounded-lg bg-lemon text-indigo p-5  flex justify-center absolute right-4 bottom-4"
         > 
-            <p>{{ this.getWish }}</p>
+            <p class="truncate w-60  ">{{ this.getWish }}</p>
      
         </div>
       </div>
       </marquee>
     </div>
+    </div>
+ 
   </div>
 </template>
 <script>

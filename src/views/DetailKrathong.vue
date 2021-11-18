@@ -15,18 +15,19 @@
           />
         </div>
         <div class="bg-cloud rounded-3xl p-5 py-10 w-3/5 ">
-          <div>Name : {{ krathong.kt_name }}</div>
-          <div>Type : {{ krathong.kt_type.type }}</div>
-          <div>Detail : {{ krathong.detail }}</div>
+          <div><span class="font-bold">Name : </span>  {{ krathong.kt_name }}</div>
+          <div><span class="font-bold">Type : </span>  {{ krathong.kt_type.type }}</div>
+          <div><span class="font-bold">Detail : </span>  {{ krathong.detail }}</div>
           <div>
-            <label for="wish">Wish : </label>
+            <label for="wish" class="font-bold">Wish : </label>
             <input
               type="text"
               v-model.trim="entered.wish"
               class="rounded-3xl py-1 px-2 w-5/6 text-indigo  "
             />
+            <p class="text-ash px-20">Enter wish no more than 200 characters</p>
             <p v-if="invalid.wish" class="text-red-500 px-20">
-              Please enter wish !
+               This wish is Invalid !
             </p>
           </div>
           <div class="flex justify-end">
@@ -94,29 +95,30 @@ export default {
         });
     },
     loy() {
-      this.invalid.wish =
-        this.entered.wish === undefined || this.entered.wish === ""
-          ? true
-          : false;
+      if(this.entered.wish == "" || this.entered.wish.length > 200){
+          this.invalid.wish = true;
 
-      if (this.getRole == "") {
+      }else{
+        if (this.getRole == "") {
         this.setKrathongId(this.$route.params.kt_id);
         this.setWish(this.entered.wish);
         this.$router.push(`/floating/${this.$route.params.kt_id}`);
       } else {
-        axios
-          .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)
-          .then((res) => {
-            // console.log(res.data);
-            this.setKrathongId(res.data.kt_id);
-            this.setWish(res.data.wish);
-            this.$router.push("/place");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // axios
+        //   .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)
+        //   .then((res) => {
+        //     // console.log(res.data);
+        //     this.setKrathongId(res.data.kt_id);
+        //     this.setWish(res.data.wish);
+        //     this.$router.push("/place");
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+         this.$router.push("/place");
       }
-    },
+      }
+    }
   },
   mounted() {
     this.fetchKrathong();

@@ -8,9 +8,9 @@
         Place
       </p>
 
-      <router-link to="/addKrathong">
+      <!-- <router-link to="/addKrathong">
        add Place btn(Admin)
-      </router-link>
+      </router-link> -->
       <div class="grid grid-cols-3 gap-10 w-full">
         
         <ul v-for="item in ktImage" :key="item.kt_id">
@@ -46,3 +46,15 @@
     </content-layout>
   </div>
 </template>
+<script>
+export default {
+data() {
+  return {
+    // place:{
+    //   kt_name:"",
+
+    // }
+  }
+},
+}
+</script>

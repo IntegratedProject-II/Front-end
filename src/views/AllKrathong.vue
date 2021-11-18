@@ -7,16 +7,15 @@
       >
         Krathong
       </p>
-      <p>
+      <!-- <p>
         isUser :
         <button @click="changeUser" class="text-red-600">
           {{ this.isUser }}
         </button>
       </p>
       <router-link to="/addKrathong">
-       ad
-       d Krathong btn(Admin)
-      </router-link>
+       add Krathong btn(Admin)
+      </router-link> -->
       <div class="grid grid-cols-3 gap-10 w-full">
         
         <ul v-for="item in ktImage" :key="item.kt_id">
@@ -38,7 +37,6 @@
               </button>
             </div>
           </router-link>
-
           <!-- admin btn  -->
           <div v-if="!isUser" class="flex justify-center">
             <button
