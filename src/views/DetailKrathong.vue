@@ -115,7 +115,7 @@ export default {
         //   .catch((err) => {
         //     console.log(err);
         //   });
-         this.$router.push("/place");
+         this.$router.push("/placeType");
       }
       }
     }

@@ -1,21 +1,21 @@
 <template>
-  <div class="place">
+  <div class="placeType">
     <navBar-layout />
     <content-layout>
       <p
         class="text-ash tablet:text-4xl font-bold text-center  text-xl m-8 tablet:m-16"
       >
-        Place
+        Place Type
       </p>
 
       <div class="grid grid-cols-3 gap-10 w-full">
-        <ul v-for="item in place" :key="item.p_name">
-          <router-link :to="`/krathong/${item.kt_id}`">
+        <ul v-for="item in placeType" :key="item.tp_id">
+          <router-link :to="`/place/getPlace?tp_id=`+item.tp_id">
           <div class="flex justify-center">
             <img
               :src="
-                'https://www.loykrathong.tech/api/image/placeImage/' +
-                  item.p_id
+                'https://www.loykrathong.tech/api/image/placeTypeImage/' +
+                  item.tp_id
               "
               class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
             />
@@ -25,7 +25,7 @@
             <button
               class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
             >
-              {{item.p_name}}
+              {{item.tp_name}}
             </button>
           </div>
           </router-link>
@@ -48,32 +48,24 @@ import axios from "axios";
 export default {
   data() {
     return {
-    //   place: {
-    //     p_name: "",
-    //     p_image: "",
-    //     detail:"",
-    //     tp_id:0,
-    //   },
-    place :[]
+      placeType: {
+        tp_name: "",
+        tp_image: "",
+      },
     };
   },
   methods: {
-    fetchPlace() {
-      
+    fetchPlaceType() {
       axios
-        .get(`${process.env.VUE_APP_API}/place/getPlace`)
+        .get(`${process.env.VUE_APP_API}/placeType/getPlaceType`)
         .then((res) => {
-
-    this.place = res.data.data.filter((place)=>(place.tp_id == this.$route.query.tp_id))
-    
-        //   this.place = res.data.data;
-        //     (this.$route.query.tp_id == this.place.tp_id)
-          
+          this.placeType = res.data.data;
+       
         });
     },
   },
   mounted() {
-    this.fetchPlace();
+    this.fetchPlaceType();
   },
 };
 </script>
