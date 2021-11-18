@@ -1,8 +1,8 @@
 <template>
   <div>
     <navBar-layout />
-    <div class="relative">
-      <img src="../assets/bg1.gif" class="z-0 px-7 " />
+    <div class="relative w-4/5 mx-auto">
+      <img src="../assets/bg1.gif" class="z-0 px-7 w-full" />
 
       <div class="flex justify-end z-40 absolute bottom-0 right-0">
         <router-link
