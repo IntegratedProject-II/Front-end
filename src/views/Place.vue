@@ -3,13 +3,13 @@
     <navBar-layout />
     <content-layout>
       <p
-        class="text-ash tablet:text-4xl font-bold text-center  text-xl m-8 tablet:m-16"
+        class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
       >
         Place
       </p>
 
-      <div class="grid grid-cols-3 gap-10 w-full">
-        <ul v-for="item in place" :key="item.p_name">
+      <div class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
+        <ul v-for="item in place" :key="item.p_name" class="flex justify-center">
           <button @click="loy">
             <div class="flex justify-center">
               <img
@@ -17,13 +17,13 @@
                   'https://www.loykrathong.tech/api/image/placeImage/' +
                     item.p_id
                 "
-                class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
+                class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand "
               />
             </div>
 
             <div class="flex justify-center">
               <button
-                class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
+                class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
               >
                 {{ item.p_name }}
               </button>
@@ -33,7 +33,7 @@
           <!-- admin btn 
           <div v-if="!isUser" class="flex justify-center">
             <button
-              class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
+              class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
             >
               Edit
             </button>
@@ -73,7 +73,7 @@ export default {
       });
     },
     loy() {
-      this.setTypePlace(this.$route.query.tp_id)
+      this.setTypePlace(this.$route.query.tp_id);
       this.$router.push(`/floating`);
     },
   },

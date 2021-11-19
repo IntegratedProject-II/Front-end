@@ -3,7 +3,7 @@
     <navBar-layout />
     <content-layout>
       <p
-        class="text-ash tablet:text-4xl font-bold text-center  text-xl m-8 tablet:m-16"
+        class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
       >
         Krathong
       </p>
@@ -16,22 +16,22 @@
       <router-link to="/addKrathong">
        add Krathong btn(Admin)
       </router-link> -->
-      <div class="grid grid-cols-3 gap-10 w-full">
-        
+      <div class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
         <ul v-for="item in ktImage" :key="item.kt_id">
           <router-link :to="`/krathong/${item.kt_id}`">
             <div class="flex justify-center">
               <img
                 :src="
-                  'https://www.loykrathong.tech/api/image/krathongImage/' + item.kt_id
+                  'https://www.loykrathong.tech/api/image/krathongImage/' +
+                    item.kt_id
                 "
-                class="w-80 h-80 bg-sand rounded-full object-contain p-2 "
+                class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand"
               />
             </div>
 
             <div v-if="isUser" class="flex justify-center">
               <button
-                class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
+                class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
               >
                 Choose
               </button>
@@ -40,7 +40,7 @@
           <!-- admin btn  -->
           <div v-if="!isUser" class="flex justify-center">
             <button
-              class=" bg-cloud text-indigo rounded-full hover:duration-300 hover:text-cloud hover:bg-indigo p-2 m-10 w-36  "
+              class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
             >
               Edit
             </button>
