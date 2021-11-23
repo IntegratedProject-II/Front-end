@@ -43,13 +43,13 @@
           >
             <router-link to="/loy">
               <button
-                class="p-2 px-4 rounded-full tablet:px-10 text-indigo bg-coin hover:duration-300 hover:text-silver hover:bg-white"
+                class="p-2 px-4 rounded-full tablet:px-10 text-indigo bg-coin hover:duration-300 hover:text-white hover:bg-rose"
               >
                 Back
               </button>
             </router-link>
             <button
-              class="p-2 px-4 rounded-full tablet:px-10 text-indigo bg-coin hover:duration-300 hover:text-silver hover:bg-white"
+              class="p-2 px-4 rounded-full tablet:px-10 text-indigo bg-coin hover:duration-300 hover:text-white hover:bg-fern"
               @click="loy"
             >
               Loy

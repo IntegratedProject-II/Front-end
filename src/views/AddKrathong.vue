@@ -1,15 +1,25 @@
 <template>
   <div>
+    <navBar-layout />
     <content-layout>
       <div
         class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
       >
         <Form @submit="submit" v-slot="{ errors }">
+          <!-- add image  -->
           <div>
-            <button @click="choosePhoto">
-              Choose photo
-            </button>
+             <label class="label" for="kt_image">Choose photo </label>
+            <input
+            type="file"
+            id="kt_image"
+            accept="image/*" 
+            @change="onFileChange"
+            required
+          />
+
           </div>
+          <!-- add name  -->
+
           <div class="bg-cloud rounded-3xl p-5 py-10 w-3/5 ">
             <div>
               <label for="krathongName">
@@ -18,11 +28,12 @@
               <Field
                 name="kt_name"
                 type="text"
-                v-model.trim="kt_name"
+                 v-model.trim="entered.kt_name"
                 rules="required"
               />
               <p class="text-red-500">{{ errors.kt_name }}</p>
             </div>
+            <!-- add type  -->
             <div>
               <label for="Type">
                 Type
@@ -30,20 +41,22 @@
               <br />
 
               <Field
+               
                 name="type"
                 as="select"
                 v-model="entered.t_id"
                 rules="required"
               >
                 <option
-                  v-for="type in types"
-                  :key="type.value"
-                  :value="type.value"
+                  v-for="type in kt_type"
+                  :key="type.t_id"
+                  :value="type.t_id"
                 >
-                  {{ type.value }}
+                  {{ type.type }}
                 </option>
               </Field>
             </div>
+            <!-- add amount  -->
             <div>
               <label for="Total">
                 Total
@@ -55,7 +68,8 @@
                 rules="required"
               />
               <!-- <Field name="total" type="text" v-model="entered.amount"></Field> -->
-            </div>
+            </div> 
+            <!-- add detail  -->
             <div>
               <label for="krathongDetail">
                 Detail
@@ -79,7 +93,6 @@
 
               <button
                 class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
-                @click="create"
               >
                 Create
               </button>
@@ -98,7 +111,6 @@ defineRule("required", (value) => {
   if (!value) {
     return "This field is required ";
   }
-
   return true;
 });
 export default {
@@ -106,20 +118,13 @@ export default {
     return {
       entered: {
         kt_name: "",
-        amount: 0,
+        amount: 1,
         kt_image: "",
         detail: "",
         t_id: 0,
       },
-      types: [
-        { value: "banana leaf" },
-        { value: "ice" },
-        { value: "bread" },
-        { value: "coconut shell" },
-        { value: "boat and candle" },
-        { value: "boat and flower" },
-        { value: "other" },
-      ],
+      kt_type: []
+      ,
     };
   },
   components: {
@@ -127,23 +132,86 @@ export default {
     Form,
   },
   methods: {
+    fetchType(){
+         axios.get(`${process.env.VUE_APP_API}/krathongType/getType`).then((res) => {
+        // console.log(res.data);
+        this.kt_type = res.data.data;
+      });
+    },
     clear() {
       console.log("clear method");
     },
-    create() {
-      axios
-        .post(`${process.env.VUE_APP_API}/addKrathong`, this.entered)
-        .then((res) => {
-          console.log(res.data);
-          alert("Create Krathong successfully");
-          this.$router.push("/loy");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    submit() {
+
+      // axios
+      //   .post(`${process.env.VUE_APP_API}/krathong/addKrathong`, this.entered)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     alert("Create Krathong successfully");
+        
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
       console.log("create method");
+      console.log(this.entered)
+      this.addKrathong();
     },
-    choosePhoto() {},
+    onFileChange(e){
+      this.entered.kt_image = e.target.files[0]
+      console.log(e.target.files[0])
+    },
+    addKrathong(){
+      let data = {
+        kt_name: this.entered.kt_name,
+        amount: Number(this.entered.amount),
+        kt_image : this.entered.kt_image.name,
+        detail: this.entered.detail,
+        t_id: this.entered.t_id
+      }
+      console.log(data)
+      // let jsonData = JSON.stringify(data);
+      // let blob = new Blob([jsonData],{
+      //   type : "application/json",
+      // });
+    //   let form = new FormData();
+    //   form.append("image", this.entered.kt_image);
+    //   form.append("data",JSON.stringify(data));
+
+    //  axios.post(`${process.env.VUE_APP_API}/krathong/addKrathong`,form)
+    //   .then((response)=>{
+    //     if(response.ok){
+    //       console.log("data saved");
+    //       // this.$emit("addNewKrathong",data);
+    //     }else{
+    //       throw new Error("cann't save data")
+    //     }
+    //   })
+     let convertToJSON = JSON.stringify(data);
+      const blob = new Blob([convertToJSON], {
+        type: "application/json"
+      });
+      let formData = new FormData();
+
+      formData.append("image", this.entered.kt_image, this.entered.kt_image.name);
+      formData.append("data", blob, "data.json");
+     axios.post(
+          "https://www.loykrathong.tech/api/krathong/addKrathong",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" }
+          }
+        )
+        .then(res => {
+          console.log(res);
+        })  
+      .catch((error)=>{
+        console.log(error)
+      })
+    }
+  },
+  mounted() {
+    this.fetchType()
   },
 };
 </script>

@@ -7,7 +7,7 @@
       >
         Krathong
       </p>
-      <!-- <p>
+      <p>
         isUser :
         <button @click="changeUser" class="text-red-600">
           {{ this.isUser }}
@@ -15,7 +15,7 @@
       </p>
       <router-link to="/addKrathong">
        add Krathong btn(Admin)
-      </router-link> -->
+      </router-link>
       <div class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
         <ul v-for="item in ktImage" :key="item.kt_id">
           <router-link :to="`/krathong/${item.kt_id}`">

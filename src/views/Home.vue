@@ -10,10 +10,7 @@
           Select Krathong
         </button>
       </router-link>
-      <div class="flex justify-center">
-<p >.. Register for select more location ..</p>
-      </div>
-    
+
       <!-- history -->
       <history></history>
     </content-layout>
