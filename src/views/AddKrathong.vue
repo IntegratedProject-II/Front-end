@@ -143,18 +143,8 @@ export default {
     },
     submit() {
 
-      // axios
-      //   .post(`${process.env.VUE_APP_API}/krathong/addKrathong`, this.entered)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     alert("Create Krathong successfully");
-        
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
       console.log("create method");
-      console.log(this.entered)
+      // console.log(this.entered)
       this.addKrathong();
     },
     onFileChange(e){
@@ -170,23 +160,7 @@ export default {
         t_id: this.entered.t_id
       }
       console.log(data)
-      // let jsonData = JSON.stringify(data);
-      // let blob = new Blob([jsonData],{
-      //   type : "application/json",
-      // });
-    //   let form = new FormData();
-    //   form.append("image", this.entered.kt_image);
-    //   form.append("data",JSON.stringify(data));
 
-    //  axios.post(`${process.env.VUE_APP_API}/krathong/addKrathong`,form)
-    //   .then((response)=>{
-    //     if(response.ok){
-    //       console.log("data saved");
-    //       // this.$emit("addNewKrathong",data);
-    //     }else{
-    //       throw new Error("cann't save data")
-    //     }
-    //   })
      let convertToJSON = JSON.stringify(data);
       const blob = new Blob([convertToJSON], {
         type: "application/json"

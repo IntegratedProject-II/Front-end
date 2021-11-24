@@ -1,7 +1,7 @@
 export const signin = {
     namespaced: true,
     state: {
-        user_id:0,
+        user_id:5,
         role: "",
         isSignIn: false,
         
@@ -10,6 +10,9 @@ export const signin = {
         setRole(state, payload) {
             state.role = payload
         },
+        setUserId(state, payload){
+            state.user_id = payload
+        }
         // signInStatus(state) {
         //     if (state.role !== "" || state.role !== null || state.role !== undefined) {
         //         state.isSignIn = true;
@@ -22,6 +25,9 @@ export const signin = {
         setRole(context, payload) {
             context.commit("setRole", payload)
         },
+        setUserId(context, payload){
+            context.commit("setUserId",payload)
+        }
         // signInStatus(context, payload){
         //     context.commit("signInStatus",payload)
         // }

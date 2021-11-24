@@ -62,7 +62,7 @@
 </template>
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 function setCookie(name, value, days) {
   var expires = "";
@@ -93,6 +93,7 @@ export default {
   methods: {
     ...mapActions({
       setRole: "signin/setRole",
+      setUserId:"signin/setUserId"
     }),
     signIn() {
       this.invalid.username =
@@ -113,10 +114,13 @@ export default {
         axios
           .post(`${process.env.VUE_APP_API}/person/signin`, this.entered)
           .then((res) => {
+            this.setUserId(res.data.userId)
             this.setRole(res.data.role);
             setCookie("token", res.data.token,0.5);
             this.$router.push("/");
-            // console.log(res.data);
+            console.log(res.data);
+            console.log(this.getUserId)
+            console.log(this.getRole)
           })
           .catch((err) => {
             if (err.response.status == 401) {
@@ -128,6 +132,12 @@ export default {
           });
       }
     },
+  },
+   computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+      getUserId:(state)=> state.signin.user_id
+    }),
   },
 };
 </script>

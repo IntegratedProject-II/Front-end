@@ -109,7 +109,7 @@ export default {
       route: [
         { name: "Home", route: "/" },
         { name: "Krathong", route: "/loy" },
-        { name: "History", route: "/history" },
+        { name: "History", route: `/history/${this.getUserId}` },
         { name: "About us", route: "/member" },
       ],
     };
@@ -117,6 +117,7 @@ export default {
   methods: {
     ...mapActions({
       setRole: "signin/setRole",
+      setUserId:"signin/setUserId"
     }),
     dropDown() {
       if (!this.isDropDown) {
@@ -140,11 +141,27 @@ export default {
           console.log(err);
         });
     },
+    checkToken() {
+      axios
+        .get(`${process.env.VUE_APP_API}/token/check`, {
+          headers: { "pj-token": getCookie("token") },
+        })
+        .then((res) => {
+          this.setUserId(res.data.userId);
+          this.setRole(res.data.role);
+        });
+    },
   },
   computed: {
     ...mapState({
       getRole: (state) => state.signin.role,
+      getUserId: (state) => state.signin.user_id,
     }),
+  },
+  mounted() {
+    this.checkToken();
+    this.route[2].route = `/history/${this.getUserId}`;
+    console.log(this.getUserId);
   },
 };
 </script>
