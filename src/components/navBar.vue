@@ -147,8 +147,8 @@ export default {
           headers: { "pj-token": getCookie("token") },
         })
         .then((res) => {
-          this.setUserId(res.data.userId);
-          this.setRole(res.data.role);
+          this.setUserId(res.data.user.user_id);
+          this.setRole(res.data.user.role_id);
         });
     },
   },

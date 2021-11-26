@@ -113,17 +113,7 @@ export default {
           this.setWish(this.entered.wish);
           this.$router.push(`/floating`);
         } else {
-          // axios
-          //   .post(`${process.env.VUE_APP_API}/history/addHistory`, this.entered)
-          //   .then((res) => {
-          //     // console.log(res.data);
-          //     this.setKrathongId(res.data.kt_id);
-          //     this.setWish(res.data.wish);
-          //     this.$router.push("/place");
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //   });
+
           this.setKrathongId(this.$route.params.kt_id);
           this.setWish(this.entered.wish);
           this.$router.push("/placeType");

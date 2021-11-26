@@ -6,7 +6,6 @@
         class="text-ash tablet:text-4xl font-bold text-center  text-xl m-8 tablet:m-16"
       >
         Transaction Log <br />
-        Sorry, This Function not available
       </p>
 
       <!-- content -->
@@ -28,18 +27,18 @@
           <!-- log -->
           <div class="p-3 divide-y divide-indigo bg-coin rounded-2xl">
             <div
-              v-for="log in logs"
-              :key="log.h_id"
+              v-for="item in history"
+              :key="item.h_id"
               class="grid grid-cols-3 py-4 "
             >
               <div>
-                <p>{{ log.h_date }}</p>
+                <p>{{ formatDate(item.h_date) }}</p>
               </div>
               <div>
-                <p class="text-center">{{ log.kt_name }}</p>
+                <p class="text-center">{{ item.wish }}</p>
               </div>
               <div>
-                <p class="text-right">{{ log.p_name }}</p>
+                <p class="text-right">{{ item.place?.p_name || "" }}</p>
               </div>
             </div>
           </div>
@@ -50,8 +49,9 @@
 </template>
 
 <script>
-import { mapState} from "vuex";
+import { mapState } from "vuex";
 import axios from "axios";
+import * as dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -97,21 +97,24 @@ export default {
       // }
     },
     fetchHistory() {
-      axios.get(`${process.env.VUE_APP_API}/history/getHistory/${this.getUserId}`).then((res) => {
-        this.history = res.data.data;
-        console.log(this.history)
-      });
+      axios
+        .get(`${process.env.VUE_APP_API}/history/getHistory/${this.$route.params.user_id}`)
+        .then((res) => {
+          this.history = res.data.data;
+          console.log(this.history);
+        });
+    },
+    formatDate(date) {
+      return dayjs(date).format("MMMM D, YYYY h:mm A");
     },
   },
-   computed: {
+  computed: {
     ...mapState({
-
-      getUserId:(state)=> state.signin.user_id
+      getUserId: (state) => state.signin.user_id,
     }),
   },
-  mounted(){
+  mounted() {
     this.fetchHistory();
-    
-  }
+  },
 };
 </script>
