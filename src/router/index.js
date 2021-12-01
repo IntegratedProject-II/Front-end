@@ -7,9 +7,13 @@ import AllKrathong from '@/views/AllKrathong.vue'
 import Register from '@/views/Register.vue'
 import Krathong from '@/views/DetailKrathong.vue'
 import TypePlace from '@/views/TypePlace.vue'
-import AddKrathong from '@/views/AddKrathong.vue'
-import LoyrResult from '@/views/LoyResult.vue'
+import LoyResult from '@/views/LoyResult.vue'
 import Place from '@/views/Place.vue'
+import HomeAdmin from '@/views/HomeAdmin.vue'
+import AddKrathong from '@/views/AddEditKrathong.vue'
+import AddPlace from '@/views/AddEditPlace.vue'
+import EditKrathong from '@/views/AddEditKrathong.vue'
+import EditPlace from '@/views/AddEditPlace.vue'
 const routes = [
   {
     path: '/',
@@ -17,54 +21,74 @@ const routes = [
     component: Home
   },
   {
-    path:'/history/:user_id',
-    name:'History',
-    component:History
+    path: '/history/:user_id',
+    name: 'History',
+    component: History
   },
   {
-    path:'/member',
-    name:'Member',
-    component:Member
+    path: '/member',
+    name: 'Member',
+    component: Member
   },
   {
-    path:'/signIn',
-    name:'SignIn',
-    component:SignIn
+    path: '/signIn',
+    name: 'SignIn',
+    component: SignIn
   },
   {
-    path:'/loy', 
-    name:'AllKrathong',
-    component:AllKrathong
+    path: '/allKrathong',
+    name: 'AllKrathong',
+    component: AllKrathong
   },
   {
-    path:'/register', 
-    name:'Register',
-    component:Register
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
-    path:'/krathong/:kt_id',
-    name:'Krathong',
-    component : Krathong
+    path: '/krathong/:kt_id',
+    name: 'Krathong',
+    component: Krathong
   },
   {
-    path:'/placeType',
-    name:'TypePlace',
-    component : TypePlace
+    path: '/placeType',
+    name: 'TypePlace',
+    component: TypePlace
   },
   {
-    path:'/place/:pt_id',
-    name:'Place',
-    component : Place
+    path: '/place/:pt_id',
+    name: 'Place',
+    component: Place
   },
   {
-    path:'/addKrathong',
-    name:'AddKrathong',
-    component : AddKrathong
+    path: '/floating',
+    name: 'LoyResult',
+    component: LoyResult
   },
   {
-    path:'/floating',
-    name:'LoyResult',
-    component : LoyrResult
+    path: '/homeAdmin',
+    name: 'HomeAdmin',
+    component: HomeAdmin
+  },
+  {
+    path: '/addKrathong',
+    name: 'AddKrathong',
+    component: AddKrathong
+  },
+  {
+    path: '/addPlace',
+    name: 'AddPlace',
+    component: AddPlace
+  },
+  {
+    path: '/editKrathong/:kt_id',
+    name: 'editKrathong',
+    component: EditKrathong
+  },
+  {
+    path: '/editPlace/:p_id',
+    name: 'editPlace',
+    component: EditPlace
   }
 
 ]

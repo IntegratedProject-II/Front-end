@@ -1,61 +1,27 @@
 <template>
-  <div class="allKrathong">
+  <div class="allPlace">
     <navBar-layout />
     <content-layout>
       <p
         class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
       >
-        Krathong
+        Place
       </p>
-      <p>
-        isUser :
-        <button @click="changeUser" class="text-red-600">
-          {{ this.isUser }}
-        </button>
-      </p>
-      <router-link to="/homeAdmin">
-       go to admin btn(Admin)
-      </router-link>
-
-      <!-- user ui  -->
-      <div v-if="isUser"  class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
-        <ul v-for="item in ktImage" :key="item.kt_id">
-          <router-link :to="`/krathong/${item.kt_id}`">
-            <div class="flex justify-center">
-              <img
-                :src="
-                  'https://www.loykrathong.tech/api/image/krathongImage/' +
-                    item.kt_id
-                "
-                class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand"
-              />
-            </div>
-
-            <div v-if="isUser" class="flex justify-center">
-              <button
-                class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
-              >
-                Choose
-              </button>
-            </div>
-          </router-link>   
-        </ul>
-      </div>
 
       <!-- admin ui  -->
-       <div v-if="!isUser" class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
-        <ul v-for="item in ktImage" :key="item.kt_id">
-          <router-link :to="`/editKrathong/${item.kt_id}`">
+       <div  class="grid w-full grid-cols-1 gap-10 laptop:grid-cols-3">
+        <ul v-for="item in place" :key="item.p_id">
+          <router-link :to="`/editPlace/${item.p_id}`">
             <div class="flex justify-center">
               <img
                 :src="
                   'https://www.loykrathong.tech/api/image/krathongImage/' +
-                    item.kt_id
+                    item.p_id
                 "
                 class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand"
               />
             </div>   
-          <div v-if="!isUser" class="flex justify-center">
+          <div class="flex justify-center">
             <button
               class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
             >
@@ -75,7 +41,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ktImage: [],
+      place: [],
       isUser: true,
       KrathongId: 0,
     };
