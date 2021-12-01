@@ -15,7 +15,7 @@
             <div class="flex justify-center">
               <img
                 :src="
-                  'https://www.loykrathong.tech/api/image/krathongImage/' +
+                  'https://www.loykrathong.tech/api/place/getPlace/' +
                     item.p_id
                 "
                 class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand"
@@ -50,24 +50,18 @@ export default {
     //   ...mapMutations({
     //   setRole: "signin/setRole",
     // }),
-    fetchKrathongImage() {
+    fetchPlace() {
       axios
-        .get(`${process.env.VUE_APP_API}/Krathong/getkrathong`)
+        .get(`${process.env.VUE_APP_API}/place/getPlace`)
         .then((res) => {
-          this.ktImage = res.data.data;
-          // console.log("fetchImage");
+          this.place = res.data.data;
+          console.log("fetchImage");
         });
     },
-    changeUser() {
-      if (this.isUser) {
-        this.isUser = false;
-      } else {
-        this.isUser = true;
-      }
-    },
+
   },
   mounted() {
-    this.fetchKrathongImage();
+    this.fetchPlace();
   },
 };
 </script>

@@ -41,7 +41,7 @@
           <div
             class="flex justify-around space-x-0 laptop:justify-end laptop:space-x-10"
           >
-            <router-link to="/loy">
+            <router-link to="/allKrathong">
               <button
                 class="p-2 px-4 rounded-full tablet:px-10 text-indigo bg-coin hover:duration-300 hover:text-white hover:bg-rose"
               >

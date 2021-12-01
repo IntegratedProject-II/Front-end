@@ -37,16 +37,16 @@
             />
           </div>
           <div class="flex justify-center">
-            <button
-              class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
+            <router-link to="/addPlace"
+              class="p-2 m-10 mx-a rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
             >
               Add Place
-            </button>
-            <button
+            </router-link>
+            <router-link to="/allPlace"
               class="p-2 m-10 rounded-full bg-cloud text-indigo hover:duration-300 hover:text-cloud hover:bg-indigo w-36"
             >
               Edit Place
-            </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -54,14 +54,17 @@
   </div>
 </template>
 <script>
+import {  mapState } from "vuex";
 export default {
-  methods: {
-    editKrathong() {
-      this.$router.push("/admin/editKrathong");
-    },
-    editPlace() {
-      this.$router.push("/admin/editPlace");
-    },
+ mounted() {
+    if (this.getRole != 2) {
+        this.$router.push(`/`);
+      }
+ },
+ computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+    }),
   },
 };
 </script>

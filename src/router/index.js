@@ -4,6 +4,7 @@ import Member from '@/views/Member.vue'
 import SignIn from '@/views/SignIn.vue'
 import History from '@/views/History.vue'
 import AllKrathong from '@/views/AllKrathong.vue'
+import AllPlace from '@/views/AllPlace.vue'
 import Register from '@/views/Register.vue'
 import Krathong from '@/views/DetailKrathong.vue'
 import TypePlace from '@/views/TypePlace.vue'
@@ -39,6 +40,11 @@ const routes = [
     path: '/allKrathong',
     name: 'AllKrathong',
     component: AllKrathong
+  },
+  {
+    path: '/allPlace',
+    name: 'AllPlace',
+    component: AllPlace
   },
   {
     path: '/register',

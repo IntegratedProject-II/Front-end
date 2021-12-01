@@ -7,13 +7,8 @@
       >
         Krathong
       </p>
-      <p>
-        isUser :
-        <button @click="changeUser" class="text-red-600">
-          {{ this.isUser }}
-        </button>
-      </p>
-      <router-link to="/homeAdmin">
+ 
+      <router-link to="/homeAdmin" v-if="!isUser" >
        go to admin btn(Admin)
       </router-link>
 
@@ -70,7 +65,7 @@
 </template>
 <script>
 import axios from "axios";
-// import {  mapMutations } from "vuex";
+import {  mapState } from "vuex";
 
 export default {
   data() {
@@ -92,8 +87,8 @@ export default {
           // console.log("fetchImage");
         });
     },
-    changeUser() {
-      if (this.isUser) {
+    checkUser() {
+      if (this.getRole == 2) {
         this.isUser = false;
       } else {
         this.isUser = true;
@@ -102,6 +97,13 @@ export default {
   },
   mounted() {
     this.fetchKrathongImage();
+    this.checkUser();
+
+  },
+    computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+    }),
   },
 };
 </script>

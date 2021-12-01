@@ -8,15 +8,14 @@
         <Form @submit="submit" v-slot="{ errors }">
           <!-- add image  -->
           <div>
-             <label class="label" for="kt_image">Choose photo </label>
+            <label class="label" for="kt_image">Choose photo </label>
             <input
-            type="file"
-            id="kt_image"
-            accept="image/*" 
-            @change="onFileChange"
-            required
-          />
-
+              type="file"
+              id="kt_image"
+              accept="image/*"
+              @change="onFileChange"
+              required
+            />
           </div>
           <!-- add name  -->
 
@@ -28,7 +27,7 @@
               <Field
                 name="kt_name"
                 type="text"
-                 v-model.trim="entered.kt_name"
+                v-model.trim="entered.kt_name"
                 rules="required"
               />
               <p class="text-red-500">{{ errors.kt_name }}</p>
@@ -41,7 +40,6 @@
               <br />
 
               <Field
-               
                 name="type"
                 as="select"
                 v-model="entered.t_id"
@@ -68,7 +66,7 @@
                 rules="required"
               />
               <!-- <Field name="total" type="text" v-model="entered.amount"></Field> -->
-            </div> 
+            </div>
             <!-- add detail  -->
             <div>
               <label for="krathongDetail">
@@ -106,6 +104,7 @@
 
 <script>
 import axios from "axios";
+import {  mapState } from "vuex";
 import { Form, Field, defineRule } from "vee-validate";
 defineRule("required", (value) => {
   if (!value) {
@@ -123,8 +122,9 @@ export default {
         detail: "",
         t_id: 0,
       },
-      kt_type: []
-      ,
+      kt_type: [],
+      editedkrathong: [],
+      krathong: [],
     };
   },
   components: {
@@ -132,60 +132,134 @@ export default {
     Form,
   },
   methods: {
-    fetchType(){
-         axios.get(`${process.env.VUE_APP_API}/krathongType/getType`).then((res) => {
-        // console.log(res.data);
-        this.kt_type = res.data.data;
-      });
+    fetchType() {
+      axios
+        .get(`${process.env.VUE_APP_API}/krathongType/getType`)
+        .then((res) => {
+          // console.log(res.data);
+          this.kt_type = res.data.data;
+        });
+    },
+    fetchKrathong() {
+      axios
+        .get(
+          `${process.env.VUE_APP_API}/krathong/getKrathong/${this.$route.params.kt_id}`
+        )
+        .then((res) => {
+          this.krathong = res.data.data;
+          this.entered.kt_name = this.krathong.kt_name;
+          this.entered.amount = this.krathong.amount;
+          this.entered.detail = this.krathong.detail;
+          this.entered.kt_image = this.krathong.kt_image;
+        });
     },
     clear() {
       console.log("clear method");
+      this.entered.kt_name = "";
+      this.entered.amount = 0;
+      this.entered.kt_image = "";
+      this.entered.detail = "";
+      this.entered.t_id = 0;
     },
     submit() {
-
       console.log("create method");
       // console.log(this.entered)
       this.addKrathong();
     },
-    onFileChange(e){
-      this.entered.kt_image = e.target.files[0]
-      console.log(e.target.files[0])
+    onFileChange(e) {
+      this.entered.kt_image = e.target.files[0];
+      console.log(e.target.files[0]);
     },
-    addKrathong(){
+    addKrathong() {
       let data = {
         kt_name: this.entered.kt_name,
         amount: Number(this.entered.amount),
-        kt_image : this.entered.kt_image.name,
+        kt_image: this.entered.kt_image.name,
         detail: this.entered.detail,
-        t_id: this.entered.t_id
-      }
-      console.log(data)
+        t_id: this.entered.t_id,
+      };
+      // console.log(data)
 
-     let convertToJSON = JSON.stringify(data);
+      let convertToJSON = JSON.stringify(data);
       const blob = new Blob([convertToJSON], {
-        type: "application/json"
+        type: "application/json",
       });
       let formData = new FormData();
 
-      formData.append("image", this.entered.kt_image, this.entered.kt_image.name);
+      formData.append(
+        "image",
+        this.entered.kt_image,
+        this.entered.kt_image.name
+      );
       formData.append("data", blob, "data.json");
-     axios.post(
+      axios
+        .post(
           "https://www.loykrathong.tech/api/krathong/addKrathong",
           formData,
           {
-            headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data" },
           }
         )
-        .then(res => {
+        .then((res) => {
           console.log(res);
-        })  
-      .catch((error)=>{
-        console.log(error)
-      })
-    }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    editKrathong() {
+      let data = {
+        kt_name: this.entered.kt_name,
+        amount: Number(this.entered.amount),
+        kt_image: this.entered.kt_image.name,
+        detail: this.entered.detail,
+        t_id: null,
+      };
+
+      let convertToJSON = JSON.stringify(data);
+      const blob = new Blob([convertToJSON], {
+        type: "application/json",
+      });
+      let formData = new FormData();
+
+      formData.append(
+        "image",
+        this.entered.kt_image,
+        this.entered.kt_image.name
+      );
+      formData.append("data", blob, "data.json");
+      axios
+        .put(
+          `https://www.loykrathong.tech/api/krathong/editKrathong/${this.$route.params.kt_id}`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          if (res.ok) {
+            alert("edit complete");
+            this.$router.push("/allKrathong");
+          }else{
+            throw new Error("error to save data")
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
-    this.fetchType()
+    this.fetchType();
+    this.fetchKrathong();
+      if (this.getRole != 2) {
+        this.$router.push(`/`);
+      }
+  },
+   computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+    }),
   },
 };
 </script>
