@@ -12,7 +12,7 @@
         <!-- dear -->
         <div class="laptop:w-1/3">
           <div class="flex justify-center ">
-            <img src="@/assets/member/dear.jpg" class="rounded-3xl w-64 " />
+            <img src="../assets/member/dear.jpg" class="rounded-3xl w-64 " />
           </div>
 
           <div
@@ -26,7 +26,7 @@
         <!-- pond -->
         <div class="laptop:w-1/3">
           <div class="flex justify-center ">
-            <img src="@/assets/member/pond.jpg" class="rounded-3xl w-64 " />
+            <img src="../assets/member/pond.jpg" class="rounded-3xl w-64 " />
           </div>
 
           <div
@@ -40,7 +40,7 @@
         <!-- nurse -->
         <div class="laptop:w-1/3">
           <div class="flex justify-center ">
-            <img src="@/assets/member/nurse.jpg" class="rounded-3xl w-64 " />
+            <img src="../assets/member/nurse.jpg" class="rounded-3xl w-64 " />
           </div>
 
           <div

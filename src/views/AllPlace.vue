@@ -15,7 +15,7 @@
             <div class="flex justify-center">
               <img
                 :src="
-                  'https://www.loykrathong.tech/api/place/getPlace/' +
+                  'https://www.loykrathong.tech/api/image/placeImage/' +
                     item.p_id
                 "
                 class="object-contain w-64 h-64 p-2 rounded-full tablet:w-80 tablet:h-80 bg-sand"
@@ -37,6 +37,7 @@
 <script>
 import axios from "axios";
 // import {  mapMutations } from "vuex";
+import {  mapState } from "vuex";
 
 export default {
   data() {
@@ -62,6 +63,14 @@ export default {
   },
   mounted() {
     this.fetchPlace();
+       if (this.getRole != 2) {
+        this.$router.push(`/`);
+      }
+  },
+  computed: {
+    ...mapState({
+      getRole: (state) => state.signin.role,
+    }),
   },
 };
 </script>

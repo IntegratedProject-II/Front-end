@@ -2,6 +2,12 @@
   <div>
     <navBar-layout />
     <content-layout>
+            <p
+        class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
+      >
+        Admin : Krathong
+      </p>
+
       <div
         class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
       >

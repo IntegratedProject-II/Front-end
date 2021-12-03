@@ -2,16 +2,21 @@
   <div>
     <navBar-layout />
     <content-layout>
+                  <p
+        class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
+      >
+        Admin : Place
+      </p>
       <div
         class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
       >
         <Form @submit="submit" v-slot="{ errors }">
           <!-- add image  -->
           <div>
-            <label class="label" for="kt_image">Choose photo </label>
+            <label class="label" for="p_image">Choose photo </label>
             <input
               type="file"
-              id="kt_image"
+              id="p_image"
               accept="image/*"
               @change="onFileChange"
               required
@@ -21,16 +26,16 @@
 
           <div class="bg-cloud rounded-3xl p-5 py-10 w-3/5 ">
             <div>
-              <label for="krathongName">
-                Name(Krathong)
+              <label for="placeName">
+                Name
               </label>
               <Field
-                name="kt_name"
+                name="p_name"
                 type="text"
-                v-model.trim="entered.kt_name"
+                v-model.trim="entered.p_name"
                 rules="required"
               />
-              <p class="text-red-500">{{ errors.kt_name }}</p>
+              <p class="text-red-500">{{ errors.p_name}}</p>
             </div>
             <!-- add type  -->
             <div>
@@ -40,36 +45,25 @@
               <br />
 
               <Field
-                name="type"
+                name="tp_id"
                 as="select"
-                v-model="entered.t_id"
+                v-model="entered.tp_id"
                 rules="required"
               >
                 <option
-                  v-for="type in kt_type"
-                  :key="type.t_id"
-                  :value="type.t_id"
+                  v-for="type in typePlace"
+                  :key="type.tp_id"
+                  :value="type.tp_id"
                 >
-                  {{ type.type }}
+
+                  {{ type.tp_name }}
                 </option>
               </Field>
-            </div>
-            <!-- add amount  -->
-            <div>
-              <label for="Total">
-                Total
-              </label>
-              <Field
-                name="total"
-                type="number"
-                v-model="entered.amount"
-                rules="required"
-              />
-              <!-- <Field name="total" type="text" v-model="entered.amount"></Field> -->
+              <p class="text-red-500">{{ errors.tp_id }}</p>
             </div>
             <!-- add detail  -->
             <div>
-              <label for="krathongDetail">
+              <label for="placeDetail">
                 Detail
               </label>
               <Field
@@ -116,15 +110,13 @@ export default {
   data() {
     return {
       entered: {
-        kt_name: "",
-        amount: 1,
-        kt_image: "",
+        p_name: "",
+        p_image: "",
         detail: "",
-        t_id: 0,
+        tp_id: 0,
       },
-      kt_type: [],
-      editedkrathong: [],
-      krathong: [],
+      typePlace:[],
+
     };
   },
   components: {
@@ -134,10 +126,10 @@ export default {
   methods: {
     fetchType() {
       axios
-        .get(`${process.env.VUE_APP_API}/krathongType/getType`)
+        .get(`${process.env.VUE_APP_API}/placeType/getPlaceType`)
         .then((res) => {
           // console.log(res.data);
-          this.kt_type = res.data.data;
+          this.typePlace = res.data.data;
         });
     },
   },
