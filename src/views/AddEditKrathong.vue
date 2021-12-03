@@ -2,107 +2,122 @@
   <div>
     <navBar-layout />
     <content-layout>
-            <p
+      <p
         class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
       >
         Admin : Krathong
       </p>
 
-      <div
-        class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
-      >
-        <Form @submit="submit" v-slot="{ errors }">
-          <!-- add image  -->
-          <div>
-            <label class="label" for="kt_image">Choose photo </label>
-            <input
-              type="file"
-              id="kt_image"
-              accept="image/*"
-              @change="onFileChange"
-              required
-            />
-          </div>
-          <!-- add name  -->
+      <div class="flex mx-24 space-x-12" :style="{ minWidth: '850px' }">
+        <div class="flex flex-col items-center w-2/5 space-y-3">
+          <input
+            class="hidden"
+            type="file"
+            id="kt_image"
+            accept="image/*"
+            @change="onFileChange"
+            required
+          />
+          <img
+            class="w-72 h-72 rounded-3xl"
+            :style="{ backgroundColor: '#BBBBBB' }"
+            :src="getImageUrl(entered.kt_image) || '../assets/kt_thumbnail.png'"
+            alt=""
+          />
+          <button
+            class="px-8 py-2 text-white rounded-full"
+            :style="{ backgroundColor: '#828282' }"
+            @click="onClickImageReference"
+          >
+            Choose file
+          </button>
+        </div>
 
-          <div class="bg-cloud rounded-3xl p-5 py-10 w-3/5 ">
+        <div class="w-3/5">
+          <Form @submit="submit" v-slot="{ errors }">
             <div>
-              <label for="krathongName">
-                Name(Krathong)
-              </label>
-              <Field
-                name="kt_name"
-                type="text"
-                v-model.trim="entered.kt_name"
-                rules="required"
-              />
-              <p class="text-red-500">{{ errors.kt_name }}</p>
-            </div>
-            <!-- add type  -->
-            <div>
-              <label for="Type">
-                Type
-              </label>
-              <br />
-
-              <Field
-                name="type"
-                as="select"
-                v-model="entered.t_id"
-                rules="required"
-              >
-                <option
-                  v-for="type in kt_type"
-                  :key="type.t_id"
-                  :value="type.t_id"
+              <!-- add name  -->
+              <div class="flex flex-col">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Name(Krathong)
+                </p>
+                <Field
+                  name="kt_name"
+                  type="text"
+                  v-model.trim="entered.kt_name"
+                  rules="required"
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                />
+                <p class="text-red-500">{{ errors.kt_name }}</p>
+              </div>
+              <!-- add type  -->
+              <div>
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Type
+                </p>
+                <Field
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="type"
+                  as="select"
+                  v-model="entered.t_id"
+                  rules="required"
                 >
-                  {{ type.type }}
-                </option>
-              </Field>
-            </div>
-            <!-- add amount  -->
-            <div>
-              <label for="Total">
-                Total
-              </label>
-              <Field
-                name="total"
-                type="number"
-                v-model="entered.amount"
-                rules="required"
-              />
-              <!-- <Field name="total" type="text" v-model="entered.amount"></Field> -->
-            </div>
-            <!-- add detail  -->
-            <div>
-              <label for="krathongDetail">
-                Detail
-              </label>
-              <Field
-                name="detail"
-                type="text"
-                v-model.trim="entered.detail"
-                rules="required"
-              />
-              <p class="text-red-500">{{ errors.detail }}</p>
-            </div>
+                  <option
+                    v-for="type in kt_type"
+                    :key="type.t_id"
+                    :value="type.t_id"
+                  >
+                    {{ type.type }}
+                  </option>
+                </Field>
+              </div>
+              <!-- add amount  -->
+              <div>
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Total
+                </p>
+                <Field
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="total"
+                  type="number"
+                  v-model="entered.amount"
+                  rules="required"
+                />
+              </div>
+              <!-- add detail  -->
+              <div class="flex flex-col">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Detail
+                </p>
+                <Field
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="detail"
+                  as="textarea"
+                  type="text"
+                  v-model.trim="entered.detail"
+                  rules="required"
+                />
+                <p class="text-red-500">{{ errors.detail }}</p>
+              </div>
 
-            <div class="flex justify-end">
-              <button
-                class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
-                @click="clear"
-              >
-                Clear
-              </button>
+              <div class="flex justify-end">
+                <button
+                  class="p-2 m-3 text-white rounded-full bg-rose hover:duration-300 hover:text-rose hover:bg-white tablet:m-10 w-36"
+                  @click="clear"
+                >
+                  Clear
+                </button>
 
-              <button
-                class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
-              >
-                Create
-              </button>
+                <button
+                  class="p-2 m-3 text-white rounded-full bg-fern hover:duration-300 hover:text-fern hover:bg-white tablet:m-10 w-36"
+                >
+                  <span v-if="this.$route.params.kt_id">Edit</span>
+                  <span v-else>Create</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </Form>
+          </Form>
+        </div>
       </div>
     </content-layout>
   </div>
@@ -110,7 +125,7 @@
 
 <script>
 import axios from "axios";
-import {  mapState } from "vuex";
+import { mapState } from "vuex";
 import { Form, Field, defineRule } from "vee-validate";
 defineRule("required", (value) => {
   if (!value) {
@@ -169,8 +184,11 @@ export default {
     },
     submit() {
       console.log("create method");
-      // console.log(this.entered)
-      this.addKrathong();
+      if (this.$route.params.kt_id) {
+        this.editKrathong();
+      } else {
+        this.addKrathong();
+      }
     },
     onFileChange(e) {
       this.entered.kt_image = e.target.files[0];
@@ -246,23 +264,34 @@ export default {
           if (res.ok) {
             alert("edit complete");
             this.$router.push("/allKrathong");
-          }else{
-            throw new Error("error to save data")
+          } else {
+            throw new Error("error to save data");
           }
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    onClickImageReference() {
+      document.getElementById("kt_image").click();
+    },
+    getImageUrl(file) {
+      if (file !== "") {
+        return URL.createObjectURL(file);
+      }
+      return "";
+    },
   },
   mounted() {
     this.fetchType();
-    this.fetchKrathong();
-      if (this.getRole != 2) {
-        this.$router.push(`/`);
-      }
+    if (this.$route.params.id) {
+      this.fetchKrathong();
+    }
+    if (this.getRole != 2) {
+      this.$router.push(`/`);
+    }
   },
-   computed: {
+  computed: {
     ...mapState({
       getRole: (state) => state.signin.role,
     }),

@@ -2,95 +2,111 @@
   <div>
     <navBar-layout />
     <content-layout>
-                  <p
+      <p
         class="m-8 text-xl font-bold text-center text-ash tablet:text-4xl tablet:m-16"
       >
         Admin : Place
       </p>
-      <div
-        class="flex flex-col items-center laptop:flex-row laptop:justify-center p-10 gap-10"
-      >
-        <Form @submit="submit" v-slot="{ errors }">
-          <!-- add image  -->
-          <div>
-            <label class="label" for="p_image">Choose photo </label>
-            <input
-              type="file"
-              id="p_image"
-              accept="image/*"
-              @change="onFileChange"
-              required
-            />
-          </div>
-          <!-- add name  -->
+      <div class="flex mx-24 space-x-12" :style="{ minWidth: '850px' }">
+        <div class="flex flex-col items-center w-2/5 space-y-3">
+          <input
+            class="hidden"
+            type="file"
+            id="kt_image"
+            accept="image/*"
+            @change="onFileChange"
+            required
+          />
 
-          <div class="bg-cloud rounded-3xl p-5 py-10 w-3/5 ">
-            <div>
-              <label for="placeName">
-                Name
-              </label>
-              <Field
-                name="p_name"
-                type="text"
-                v-model.trim="entered.p_name"
-                rules="required"
-              />
-              <p class="text-red-500">{{ errors.p_name}}</p>
-            </div>
-            <!-- add type  -->
-            <div>
-              <label for="Type">
-                Type
-              </label>
-              <br />
+          <img
+            class="w-72 h-72 rounded-3xl"
+            :style="{ backgroundColor: '#BBBBBB' }"
+            :src="getImageUrl(entered.p_image) || '../assets/kt_thumbnail.png'"
+            alt=""
+          />
+          <button
+            class="px-8 py-2 text-white rounded-full"
+            :style="{ backgroundColor: '#828282' }"
+            @click="onClickImageReference"
+          >
+            Choose file
+          </button>
+        </div>
 
-              <Field
-                name="tp_id"
-                as="select"
-                v-model="entered.tp_id"
-                rules="required"
-              >
-                <option
-                  v-for="type in typePlace"
-                  :key="type.tp_id"
-                  :value="type.tp_id"
+        <div class="w-3/5">
+          <Form @submit="submit" v-slot="{ errors }">
+            <!-- add name  -->
+
+            <div>
+              <div class="flex flex-col">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Name
+                </p>
+                <Field
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="p_name"
+                  type="text"
+                  v-model.trim="entered.p_name"
+                  rules="required"
+                />
+                <p class="text-red-500">{{ errors.p_name }}</p>
+              </div>
+              <!-- add type  -->
+              <div>
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Type
+                </p>
+                <Field
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="tp_id"
+                  as="select"
+                  v-model="entered.tp_id"
+                  rules="required"
                 >
+                  <option
+                    v-for="type in typePlace"
+                    :key="type.tp_id"
+                    :value="type.tp_id"
+                  >
+                    {{ type.tp_name }}
+                  </option>
+                </Field>
+                <p class="text-red-500">{{ errors.tp_id }}</p>
+              </div>
+              <!-- add detail  -->
+              <div class="flex flex-col">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Detail
+                </p>
+                <Field
+                  as="textarea"
+                  class="px-6 py-2 border border-black rounded-full focus:outline-none"
+                  name="detail"
+                  type="text"
+                  v-model.trim="entered.detail"
+                  rules="required"
+                />
+                <p class="text-red-500">{{ errors.detail }}</p>
+              </div>
 
-                  {{ type.tp_name }}
-                </option>
-              </Field>
-              <p class="text-red-500">{{ errors.tp_id }}</p>
-            </div>
-            <!-- add detail  -->
-            <div>
-              <label for="placeDetail">
-                Detail
-              </label>
-              <Field
-                name="detail"
-                type="text"
-                v-model.trim="entered.detail"
-                rules="required"
-              />
-              <p class="text-red-500">{{ errors.detail }}</p>
-            </div>
+              <div class="flex justify-end">
+                <button
+                  class="p-2 m-3 text-white rounded-full bg-rose hover:duration-300 hover:text-rose hover:bg-white tablet:m-10 w-36"
+                  @click="clear"
+                >
+                  Clear
+                </button>
 
-            <div class="flex justify-end">
-              <button
-                class=" bg-rose rounded-full hover:duration-300 hover:text-rose hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
-                @click="clear"
-              >
-                Clear
-              </button>
-
-              <button
-                class=" bg-fern rounded-full hover:duration-300 hover:text-fern hover:bg-white p-2 tablet:m-10 m-3 w-36 text-white"
-              >
-                Create
-              </button>
+                <button
+                  class="p-2 m-3 text-white rounded-full bg-fern hover:duration-300 hover:text-fern hover:bg-white tablet:m-10 w-36"
+                >
+                  <span v-if="this.$route.params.p_id">Edit</span>
+                  <span v-else>Create</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </Form>
+          </Form>
+        </div>
       </div>
     </content-layout>
   </div>
@@ -115,8 +131,7 @@ export default {
         detail: "",
         tp_id: 0,
       },
-      typePlace:[],
-
+      typePlace: [],
     };
   },
   components: {
@@ -131,6 +146,15 @@ export default {
           // console.log(res.data);
           this.typePlace = res.data.data;
         });
+    },
+    onClickImageReference() {
+      document.getElementById("kt_image").click();
+    },
+    getImageUrl(file) {
+      if (file !== "") {
+        return URL.createObjectURL(file);
+      }
+      return "";
     },
   },
   mounted() {
