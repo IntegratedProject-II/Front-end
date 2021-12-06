@@ -21,7 +21,7 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.kt_image) || '../assets/kt_thumbnail.png'"
+            :src="getImageUrl(entered.kt_image) || `../assets/kt_thumbnail.png`"
             alt=""
           />
           <button

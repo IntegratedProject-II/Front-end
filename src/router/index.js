@@ -15,6 +15,7 @@ import AddKrathong from '@/views/AddEditKrathong.vue'
 import AddPlace from '@/views/AddEditPlace.vue'
 import EditKrathong from '@/views/AddEditKrathong.vue'
 import EditPlace from '@/views/AddEditPlace.vue'
+import ErrorPage from '@/views/ErrorPage.vue'
 const routes = [
   {
     path: '/',
@@ -95,6 +96,11 @@ const routes = [
     path: '/editPlace/:p_id',
     name: 'editPlace',
     component: EditPlace
+  },
+   {
+    path: '/:catchNotMatchPath(.*)',
+    name: 'Error-page',
+    component: ErrorPage
   }
 
 ]

@@ -56,11 +56,12 @@
     />
 
     <div class="flex items-center " style="color:#C4C4C4">
-      <i v-if="!isDropDown" class="fi-rr-align-justify " @click="dropDown" />
+      <img v-if="!isDropDown" @click="dropDown" src="../assets/navBar.png" class="w-6 tablet:w-10"/>
+ 
       <div v-else class="relative">
-        <i class="fi-rr-cross" @click="dropDown" />
+        <!-- <i class="fi-rr-cross" @click="dropDown" /> -->
         <div
-          class="-left-32 absolute flex flex-col w-32 tablet:w-44 tablet:-left-40 px-2 py-3 text-center rounded-3xl  divide-y divide-offWhite
+          class="-left-44 absolute flex flex-col w-32 tablet:w-56 tablet:-left-72 px-2 py-3 text-center rounded-3xl  divide-y divide-offWhite
           bg-cloud text-indigo "
         >
           <router-link
