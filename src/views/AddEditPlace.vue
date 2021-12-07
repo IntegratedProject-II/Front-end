@@ -12,7 +12,7 @@
           <input
             class="hidden"
             type="file"
-            id="kt_image"
+            id="p_image"
             accept="image/*"
             @change="onFileChange"
             required
@@ -21,7 +21,7 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.p_image) || '../assets/kt_thumbnail.png'"
+            :src="getImageUrl(entered.p_image) || '..\assets\kt_thumbnail.png'"
             alt=""
           />
           <button
@@ -33,7 +33,7 @@
           </button>
         </div>
 
-        <div class="w-3/5">
+        <div class="w-3/5" v-if="!isLoading">
           <Form @submit="submit" v-slot="{ errors }">
             <!-- add name  -->
 
@@ -132,6 +132,7 @@ export default {
         tp_id: 0,
       },
       typePlace: [],
+      isLoading: true,
     };
   },
   components: {
@@ -147,8 +148,72 @@ export default {
           this.typePlace = res.data.data;
         });
     },
+    fetchPlace(){
+      axios
+        .get(
+          `${process.env.VUE_APP_API}/place/getPlace/${this.$route.params.p_id}`
+        )
+        .then((res) => {
+          console.log(res);
+          // this.krathong = res.data.data;
+          // this.entered.kt_name = this.krathong.kt_name;
+          // this.entered.amount = Number(this.krathong.amount);
+          // this.entered.detail = this.krathong.detail;
+          // this.entered.kt_image = this.krathong.kt_image;
+          // this.entered.t_id = this.krathong.kt_type.t_id;
+          // console.log(this.entered);
+        });
+
+    },
+    submit(){
+      if(this.$route.params.p_id){
+        this.editPlace();
+      }else{
+        this.addPlace();
+      }
+    },
+    addPlace(){
+     let data = {
+        p_name: this.entered.p_name,
+        p_image: this.entered.p_image.name,
+        detail: this.entered.detail,
+        tp_id: this.entered.tp_id,
+      };
+
+      let convertToJSON = JSON.stringify(data);
+      const blob = new Blob([convertToJSON], {
+        type: "application/json",
+      });
+      let formData = new FormData();
+
+      formData.append(
+        "image",
+        this.entered.p_image,
+        this.entered.p_image.name
+      );
+      formData.append("data", blob, "data.json");
+       axios
+        .post(
+          "https://www.loykrathong.tech/api/place/addPlace",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          alert("Add new Place successfully");
+          this.$router.push("/homeAdmin");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    editPlace(){
+
+    },
     onClickImageReference() {
-      document.getElementById("kt_image").click();
+      document.getElementById("p_image").click();
     },
     getImageUrl(file) {
       if (file !== "") {
@@ -156,9 +221,19 @@ export default {
       }
       return "";
     },
+    onFileChange(e) {
+      this.entered.p_image = e.target.files[0];
+      console.log(e.target.files[0]);
+    },
   },
   mounted() {
+     this.isLoading = true;
     this.fetchType();
+     if (this.$route.params.p_id) {
+      this.fetchPlace();
+      this.isTypeFixed = true;
+    }
+      this.isLoading = false;
     if (this.getRole != 2) {
       this.$router.push(`/`);
     }

@@ -21,7 +21,7 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.kt_image) || `../assets/kt_thumbnail.png`"
+            :src="getImageUrl(entered.kt_image) || `..\assets\kt_thumbnail.png`"
             alt=""
           />
           <button
@@ -33,7 +33,7 @@
           </button>
         </div>
 
-        <div class="w-3/5">
+        <div class="w-3/5" v-if="!isLoading">
           <Form @submit="submit" v-slot="{ errors }">
             <div>
               <!-- add name  -->
@@ -45,16 +45,24 @@
                   name="kt_name"
                   type="text"
                   v-model.trim="entered.kt_name"
+                  :value="entered.kt_name"
                   rules="required"
                   class="px-6 py-2 border border-black rounded-full focus:outline-none"
                 />
                 <p class="text-red-500">{{ errors.kt_name }}</p>
               </div>
+                <div v-if="isTypeFixed">
+                <p  class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Type
+                </p>
+              <p class="py-2 px-6">{{this.krathong.kt_type.type}}</p>
+              </div>
               <!-- add type  -->
-              <div>
+              <div v-else>
                 <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
                   Type
                 </p>
+           
                 <Field
                   class="px-6 py-2 border border-black rounded-full focus:outline-none"
                   name="type"
@@ -71,6 +79,7 @@
                   </option>
                 </Field>
               </div>
+            
               <!-- add amount  -->
               <div>
                 <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
@@ -145,7 +154,18 @@ export default {
       },
       kt_type: [],
       editedkrathong: [],
-      krathong: [],
+      krathong: {
+         kt_name: null,
+        amount: null,
+        kt_image: null,
+        detail: null,
+        kt_type: {
+          t_id: null,
+          type: null,
+        },
+      },
+      isLoading: true,
+      isTypeFixed: false,
     };
   },
   components: {
@@ -167,11 +187,14 @@ export default {
           `${process.env.VUE_APP_API}/krathong/getKrathong/${this.$route.params.kt_id}`
         )
         .then((res) => {
+          console.log(res);
           this.krathong = res.data.data;
           this.entered.kt_name = this.krathong.kt_name;
-          this.entered.amount = this.krathong.amount;
+          this.entered.amount = Number(this.krathong.amount);
           this.entered.detail = this.krathong.detail;
           this.entered.kt_image = this.krathong.kt_image;
+          this.entered.t_id = this.krathong.kt_type.t_id;
+          console.log(this.entered);
         });
     },
     clear() {
@@ -183,9 +206,10 @@ export default {
       this.entered.t_id = 0;
     },
     submit() {
-      console.log("create method");
+     
       if (this.$route.params.kt_id) {
         this.editKrathong();
+         console.log("edit method");
       } else {
         this.addKrathong();
       }
@@ -226,6 +250,8 @@ export default {
         )
         .then((res) => {
           console.log(res);
+          alert("Add new Krathong successfully");
+          this.$router.push("/homeAdmin");
         })
         .catch((error) => {
           console.log(error);
@@ -252,6 +278,7 @@ export default {
         this.entered.kt_image.name
       );
       formData.append("data", blob, "data.json");
+      console.log(data)
       axios
         .put(
           `https://www.loykrathong.tech/api/krathong/editKrathong/${this.$route.params.kt_id}`,
@@ -276,17 +303,24 @@ export default {
       document.getElementById("kt_image").click();
     },
     getImageUrl(file) {
-      if (file !== "") {
-        return URL.createObjectURL(file);
+      try {
+        if (file !== "") {
+          return URL.createObjectURL(file);
+        }
+        return "";
+      } catch (error) {
+        console.log(error);
       }
-      return "";
     },
   },
   mounted() {
+    this.isLoading = true;
     this.fetchType();
-    if (this.$route.params.id) {
+    if (this.$route.params.kt_id) {
       this.fetchKrathong();
+      this.isTypeFixed = true;
     }
+    this.isLoading = false;
     if (this.getRole != 2) {
       this.$router.push(`/`);
     }
