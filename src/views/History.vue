@@ -7,21 +7,22 @@
       >
         Transaction Log <br />
       </p>
+      <p v-if="!isUser" class="flex justify-center">
+        This feature is not available with your role
+      </p>
 
       <!-- content -->
-      <div class="px-10">
+      <div v-else class="px-10">
         <div>
           <!-- filter -->
           <div class=" flex justify-end  py-2">
-            <select
-              @click="sortBy()"
-              v-model="sortSelected"
+            <button
+              @click="toggleSort()"
               class="rounded-full bg-indigo text-offWhite px-4 py-2"
             >
-              <option disabled value=""></option>
-              <option value="lastest">Lastest</option>
-              <option value="earliest">Earliest</option>
-            </select>
+              <span v-if="oldestFirst">Lastest</span>
+              <span v-else>Earliest</span>
+            </button>
           </div>
 
           <!-- log -->
@@ -62,43 +63,29 @@ export default {
         kt_id: 0,
         p_id: 0,
       },
-      // user_id:1,
-      logs: [
-        {
-          h_date: "2021-09-09 00:00:23",
-          kt_name: "name of Krathong A",
-          p_name: "place name A",
-        },
-        {
-          h_date: "2021-09-09 00:00:24",
-          kt_name: "name of Krathong B",
-          p_name: "place name B",
-        },
-        {
-          h_date: "2021-09-09 00:00:25",
-          kt_name: "name of Krathong C",
-          p_name: "place name C",
-        },
-      ],
+      oldestFirst: false,
+      isUser:false,
     };
   },
   methods: {
-    sortBy() {
-      console.log(this.sortSelected);
-      // switch (this.sortSelected) {
-      //   case "lastest":
-
-      //     break;
-      //   case "earliest":
-
-      //   break;
-      //   default:
-      //     break;
-      // }
+    toggleSort() {
+      this.oldestFirst = !this.oldestFirst;
+      let isOldest = this.oldestFirst;
+      this.history = this.history.sort(function(a, b) {
+        a = new Date(a.h_date);
+        b = new Date(b.h_date);
+        if (!isOldest) {
+          return a - b;
+        } else {
+          return b - a;
+        }
+      });
     },
     fetchHistory() {
       axios
-        .get(`${process.env.VUE_APP_API}/history/getHistory/${this.$route.params.user_id}`)
+        .get(
+          `${process.env.VUE_APP_API}/history/getHistory/${this.$route.params.user_id}`
+        )
         .then((res) => {
           this.history = res.data.data;
           console.log(this.history);
@@ -111,10 +98,15 @@ export default {
   computed: {
     ...mapState({
       getUserId: (state) => state.signin.user_id,
+      getRole: (state) => state.signin.role
     }),
   },
   mounted() {
     this.fetchHistory();
+    console.log(this.getRole)
+    if (this.getRole ==1) {
+      this.isUser = true;
+    }
   },
 };
 </script>
