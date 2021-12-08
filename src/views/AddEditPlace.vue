@@ -21,7 +21,7 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.p_image) || '..\assets\kt_thumbnail.png'"
+            :src="getImageUrl(entered.p_image) || 'assets/kt_thumbnail.png'"
             alt=""
           />
           <button
@@ -51,8 +51,14 @@
                 />
                 <p class="text-red-500">{{ errors.p_name }}</p>
               </div>
+              <div v-if="isTypeFixed">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+                  Type
+                </p>
+                <p class="py-2 px-6">{{ this.place.place_type.tp_name }}</p>
+              </div>
               <!-- add type  -->
-              <div>
+              <div v-else>
                 <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
                   Type
                 </p>
@@ -131,8 +137,19 @@ export default {
         detail: "",
         tp_id: 0,
       },
+      place: {
+        p_name: "",
+        p_image: "",
+        detail: "",
+        place_type:{
+          tp_id:"",
+          tp_name:"",
+          tp_image:""
+        }
+      },
       typePlace: [],
       isLoading: true,
+      isTypeFixed: false,
     };
   },
   components: {
@@ -144,36 +161,34 @@ export default {
       axios
         .get(`${process.env.VUE_APP_API}/placeType/getPlaceType`)
         .then((res) => {
-          // console.log(res.data);
           this.typePlace = res.data.data;
+          // console.log(this.typePlace)
         });
     },
-    fetchPlace(){
+    fetchPlace() {
       axios
         .get(
           `${process.env.VUE_APP_API}/place/getPlace/${this.$route.params.p_id}`
         )
         .then((res) => {
-          console.log(res);
-          // this.krathong = res.data.data;
-          // this.entered.kt_name = this.krathong.kt_name;
-          // this.entered.amount = Number(this.krathong.amount);
-          // this.entered.detail = this.krathong.detail;
-          // this.entered.kt_image = this.krathong.kt_image;
-          // this.entered.t_id = this.krathong.kt_type.t_id;
-          // console.log(this.entered);
+          // console.log(res);
+          this.place = res.data.data;
+          this.entered.p_name = this.place.p_name;
+          this.entered.p_image = this.place.p_image;
+          this.entered.detail = this.place.detail;
+          this.entered.tp_id = this.place.place_type.tp_name;
+          console.log(this.place);
         });
-
     },
-    submit(){
-      if(this.$route.params.p_id){
+    submit() {
+      if (this.$route.params.p_id) {
         this.editPlace();
-      }else{
+      } else {
         this.addPlace();
       }
     },
-    addPlace(){
-     let data = {
+    addPlace() {
+      let data = {
         p_name: this.entered.p_name,
         p_image: this.entered.p_image.name,
         detail: this.entered.detail,
@@ -186,20 +201,12 @@ export default {
       });
       let formData = new FormData();
 
-      formData.append(
-        "image",
-        this.entered.p_image,
-        this.entered.p_image.name
-      );
+      formData.append("image", this.entered.p_image, this.entered.p_image.name);
       formData.append("data", blob, "data.json");
-       axios
-        .post(
-          "https://www.loykrathong.tech/api/place/addPlace",
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        )
+      axios
+        .post("https://www.loykrathong.tech/api/place/addPlace", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then((res) => {
           console.log(res);
           alert("Add new Place successfully");
@@ -209,17 +216,54 @@ export default {
           console.log(error);
         });
     },
-    editPlace(){
+    editPlace() {
+      let data = {
+        p_name: this.entered.p_name,
+        p_image: this.entered.p_image.name,
+        detail: this.entered.detail,
+        tp_id: this.entered.tp_id,
+      };
 
+      let convertToJSON = JSON.stringify(data);
+      const blob = new Blob([convertToJSON], {
+        type: "application/json",
+      });
+      let formData = new FormData();
+
+      formData.append("image", this.entered.p_image, this.entered.p_image.name);
+      formData.append("data", blob, "data.json");
+      axios
+        .put(
+          `https://www.loykrathong.tech/api/place/editPlace/${this.$route.params.p_id}`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            alert("edit complete");
+            this.$router.push("/homeAdmin");
+          } else {
+            throw new Error("error to save data");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     onClickImageReference() {
       document.getElementById("p_image").click();
     },
     getImageUrl(file) {
-      if (file !== "") {
-        return URL.createObjectURL(file);
+     try {
+        if (file !== "") {
+          return URL.createObjectURL(file);
+        }
+        return "";
+      } catch (error) {
+        console.log(error);
       }
-      return "";
     },
     onFileChange(e) {
       this.entered.p_image = e.target.files[0];
@@ -227,13 +271,13 @@ export default {
     },
   },
   mounted() {
-     this.isLoading = true;
+    this.isLoading = true;
     this.fetchType();
-     if (this.$route.params.p_id) {
+    if (this.$route.params.p_id) {
       this.fetchPlace();
       this.isTypeFixed = true;
     }
-      this.isLoading = false;
+    this.isLoading = false;
     if (this.getRole != 2) {
       this.$router.push(`/`);
     }

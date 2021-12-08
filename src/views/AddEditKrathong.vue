@@ -194,7 +194,7 @@ export default {
           this.entered.detail = this.krathong.detail;
           this.entered.kt_image = this.krathong.kt_image;
           this.entered.t_id = this.krathong.kt_type.t_id;
-          console.log(this.entered);
+          console.log(this.krathong);
         });
     },
     clear() {
@@ -288,9 +288,9 @@ export default {
           }
         )
         .then((res) => {
-          if (res.ok) {
+          if (res.status === 200) {
             alert("edit complete");
-            this.$router.push("/allKrathong");
+            this.$router.push("/homeAdmin");
           } else {
             throw new Error("error to save data");
           }
