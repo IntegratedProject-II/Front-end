@@ -21,7 +21,10 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.kt_image) || `..\assets\kt_thumbnail.png`"
+            :src="
+              getImageUrl(entered.kt_image) ||
+                `https://www.loykrathong.tech/api/image/krathongImage/${this.$route.params.kt_id}`
+            "
             alt=""
           />
           <button
@@ -51,18 +54,18 @@
                 />
                 <p class="text-red-500">{{ errors.kt_name }}</p>
               </div>
-                <div v-if="isTypeFixed">
-                <p  class="text-xl font-semibold" :style="{ color: '#4D506C' }">
+              <div v-if="isTypeFixed">
+                <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
                   Type
                 </p>
-              <p class="py-2 px-6">{{this.krathong.kt_type.type}}</p>
+                <p class="py-2 px-6">{{ this.krathong.kt_type.type }}</p>
               </div>
               <!-- add type  -->
               <div v-else>
                 <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
                   Type
                 </p>
-           
+
                 <Field
                   class="px-6 py-2 border border-black rounded-full focus:outline-none"
                   name="type"
@@ -79,7 +82,7 @@
                   </option>
                 </Field>
               </div>
-            
+
               <!-- add amount  -->
               <div>
                 <p class="text-xl font-semibold" :style="{ color: '#4D506C' }">
@@ -155,7 +158,7 @@ export default {
       kt_type: [],
       editedkrathong: [],
       krathong: {
-         kt_name: null,
+        kt_name: null,
         amount: null,
         kt_image: null,
         detail: null,
@@ -187,18 +190,18 @@ export default {
           `${process.env.VUE_APP_API}/krathong/getKrathong/${this.$route.params.kt_id}`
         )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.krathong = res.data.data;
           this.entered.kt_name = this.krathong.kt_name;
           this.entered.amount = Number(this.krathong.amount);
           this.entered.detail = this.krathong.detail;
-          this.entered.kt_image = this.krathong.kt_image;
+          // this.entered.kt_image = this.krathong.kt_image;
           this.entered.t_id = this.krathong.kt_type.t_id;
-          console.log(this.krathong);
+          // console.log(this.krathong);
         });
     },
     clear() {
-      console.log("clear method");
+      // console.log("clear method");
       this.entered.kt_name = "";
       this.entered.amount = 0;
       this.entered.kt_image = "";
@@ -206,17 +209,16 @@ export default {
       this.entered.t_id = 0;
     },
     submit() {
-     
       if (this.$route.params.kt_id) {
         this.editKrathong();
-         console.log("edit method");
+        console.log("edit method");
       } else {
         this.addKrathong();
       }
     },
     onFileChange(e) {
       this.entered.kt_image = e.target.files[0];
-      console.log(e.target.files[0]);
+      // console.log(e.target.files[0]);
     },
     addKrathong() {
       let data = {
@@ -271,14 +273,16 @@ export default {
         type: "application/json",
       });
       let formData = new FormData();
+      if (this.entered.kt_image) {
+        formData.append(
+          "image",
+          this.entered.kt_image,
+          this.entered.kt_image.name
+        );
+      }
 
-      formData.append(
-        "image",
-        this.entered.kt_image,
-        this.entered.kt_image.name
-      );
       formData.append("data", blob, "data.json");
-      console.log(data)
+      console.log(data);
       axios
         .put(
           `https://www.loykrathong.tech/api/krathong/editKrathong/${this.$route.params.kt_id}`,
@@ -307,7 +311,12 @@ export default {
         if (file !== "") {
           return URL.createObjectURL(file);
         }
-        return "";
+        if (this.$route.params.kt_id) {
+          return false;
+        } else {
+          let images = require.context("../assets/", false, /\.png$/);
+          return images("./kt_thumbnail.png");
+        }
       } catch (error) {
         console.log(error);
       }

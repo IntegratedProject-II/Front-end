@@ -21,7 +21,10 @@
           <img
             class="w-72 h-72 rounded-3xl"
             :style="{ backgroundColor: '#BBBBBB' }"
-            :src="getImageUrl(entered.p_image) || 'assets/kt_thumbnail.png'"
+            :src="
+              getImageUrl(entered.p_image) ||
+                `https://www.loykrathong.tech/api/image/placeImage/${this.$route.params.p_id}`
+            "
             alt=""
           />
           <button
@@ -141,11 +144,11 @@ export default {
         p_name: "",
         p_image: "",
         detail: "",
-        place_type:{
-          tp_id:"",
-          tp_name:"",
-          tp_image:""
-        }
+        place_type: {
+          tp_id: "",
+          tp_name: "",
+          tp_image: "",
+        },
       },
       typePlace: [],
       isLoading: true,
@@ -174,10 +177,9 @@ export default {
           // console.log(res);
           this.place = res.data.data;
           this.entered.p_name = this.place.p_name;
-          this.entered.p_image = this.place.p_image;
           this.entered.detail = this.place.detail;
-          this.entered.tp_id = this.place.place_type.tp_name;
-          console.log(this.place);
+          this.entered.tp_id = this.place.tp_id;
+          // console.log(this.place);
         });
     },
     submit() {
@@ -229,8 +231,13 @@ export default {
         type: "application/json",
       });
       let formData = new FormData();
-
-      formData.append("image", this.entered.p_image, this.entered.p_image.name);
+      if (this.entered.p_image) {
+        formData.append(
+          "image",
+          this.entered.p_image,
+          this.entered.p_image.name
+        );
+      }
       formData.append("data", blob, "data.json");
       axios
         .put(
@@ -256,11 +263,16 @@ export default {
       document.getElementById("p_image").click();
     },
     getImageUrl(file) {
-     try {
+      try {
         if (file !== "") {
           return URL.createObjectURL(file);
         }
-        return "";
+        if (this.$route.params.p_id) {
+          return false;
+        } else {
+          let images = require.context("../assets/", false, /\.png$/);
+          return images("./kt_thumbnail.png");
+        }
       } catch (error) {
         console.log(error);
       }
